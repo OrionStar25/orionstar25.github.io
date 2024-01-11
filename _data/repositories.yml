@@ -2,10 +2,13 @@ github_users:
   - orionstar25
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - fedora-modularity/ModulemdTranslationHelpers
+  - fedora-modularity/libmodulemd
+  - w3c/respec
+  - HackInTheNorth/hackinthenorth.github.io
+  - OrionStar25/Smart-India-Hackathon-2019
+  - OrionStar25/Selena-Gomez-Discography
+  - OrionStar25/Multi-Class-Fleet-Congestion-Management-for-AMoD-systems
+  - OrionStar25/synthetic-data-generation
+  - OrionStar25/NUS-Cisco
+  - OrionStar25/Download_Stuff
