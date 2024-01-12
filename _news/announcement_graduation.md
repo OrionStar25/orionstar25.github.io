@@ -35,24 +35,23 @@ In conclusion, I'd like to quote a saying I always fall back to when the end goa
 ***
 
 #### NUS Course List
-<ul>
-    <li> Semester 1
-        <ol>
-            <li>CS4248: Natural Language Processing</li>
-            <li>CS5242: Neural Networks and Deep Learning</li>
-            <li>CS5340: Uncertainty Modelling in AI</li>
-        </ol>
-    <li> Semester 2
-        <ol>
-            <li>CS5228: Knowledge Discovery and Data Mining</li>
-            <li>CS5425: Big Data Systems for Data Science</li>
-            <li>CS5478: Intelligent Robots: Algorithms and Systems</li>
-            <li>CS6284: Advanced Topics in Reinforcement Learning</li>
-        </ol>
-    <li> Semester 3
-        <ol>
-            <li>CS5446: AI Planning and Decision Making</li>
-            <li>CS5562: Trustworthy Machine Learning</li>
-            <li>CS5647: Sound and Music Computing</li>
-        </ol>
-</ul>
+
+- Semester 1
+    <ol>
+        <li>CS4248: Natural Language Processing</li>
+        <li>CS5242: Neural Networks and Deep Learning</li>
+        <li>CS5340: Uncertainty Modelling in AI</li>
+    </ol>
+- Semester 2
+    <ol>
+        <li>CS5228: Knowledge Discovery and Data Mining</li>
+        <li>CS5425: Big Data Systems for Data Science</li>
+        <li>CS5478: Intelligent Robots: Algorithms and Systems</li>
+        <li>CS6284: Advanced Topics in Reinforcement Learning</li>
+    </ol>
+- Semester 3
+    <ol>
+        <li>CS5446: AI Planning and Decision Making</li>
+        <li>CS5562: Trustworthy Machine Learning</li>
+        <li>CS5647: Sound and Music Computing</li>
+    </ol>
