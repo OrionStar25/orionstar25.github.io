@@ -12,7 +12,7 @@ TLDR; After 18 months of hard work, I am proud to graduate with a Master’s deg
 
 I started my journey as a graduate student pursuing Master of Computing - AI Specialization in the National University of Singapore on 08 August 2022. Since then, I have been part of 10 highly specialized courses in Artificial Intelligence. These were an intensive mix of in-person lectures, tutorials, assignments, quizzes, projects, paper presentations, and of course exams! The whole journey was a gruelling yet truly rewarding 1.5 years of hardwork.
 
-Hence, I am glad to share that I have graduated with an Honours (Distinction) with a 4.5/5.0 CGPA! 
+Hence, I am glad to share that I have graduated with an Honours (Distinction) with a 4.4/5.0 CGPA! 
 
 Throughout the course of my study, I saw a steady increase in my academic performance (my last semester GPA was 4.7 which made my parents a tad bit happier 😝). Moreover, I was not only exposed to state-of-the-art research in multiple AI domains but also made to get my hands dirty and understand the nitty-gritties of each concept. Consequently, I now find myself better equipped to vocalize my thoughts on technical topics to a larger audience in an informed, yet easy to grasp way. A complete list of all my courses can be found at the end of the post.
 

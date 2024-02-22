@@ -2,39 +2,27 @@
 layout: about
 title: about
 permalink: /
-subtitle: <span style="color:gold">*Complimentary star dust shower on everyone* ◦°˚\(*❛‿❛)/˚°◦</span>.
+subtitle: AI Researcher 🤖 | Public Speaker 🎙️ | Open Sourcerer 🧙🏻
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: profile_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>School of Computing</p>
-    <p>National University of Singapore</a>.</p>
+    <p>National University of Singapore</p>
 
 news: true  # includes a list of news items
-latest_posts: true  # includes a list of the newest posts
-selected_papers: true # includes a list of papers marked as "selected={true}"
+latest_posts: false  # includes a list of the newest posts
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hello all! Welcome to my Space 👋🏻.
+Welcome to my space 👋🏻! I am a postgraduate in Computing with a specialization in Artificial Intelligence (AI) at the National University of Singapore. 
 
-I am Niharika Shrivastava, an aspiring powerhouse in the field of Artificial Intelligence 🦾. 
+My interests in the field of AI are diverse, ranging from Natural Language Processing, to applied data science, and robotics. However, I strongly believe that as AI becomes increasingly integrated into the lives of everyday consumers, it is paramount that we prioritize ethical considerations in our future model-building endeavors. Therefore, I am passionate about these multifaceted interdisciplinary challenges of building intelligent AI systems with a specific emphasis on enhancing robustness and fairness within them.
 
-<Things to add>
-open source projects
-open source initiatives/ roles
-talks and conference presentations
-a brief timeline of inception
+Previously, I finished my B.Tech in Information Technology from the Indian Institute of Information Technology, Allahabad (IIIT-A), advised by <a href="https://profile.iiita.ac.in/opvyas/">Prof. O.P. Vyas</a>.
 
-ongoing projects
-future projects
-projects i wish to be a part of
-things to do in life - active checklist
-hobbies
-current book im reading/songs/movies
-
-abstract it out to different sections
-
-Fin.
+I am also an avid reader of books (fiction, adventure), love to sing, and engage in outdoor activities.
+P.S. I am currently obsessed with watching live performances of several female artists. Here's my all-time favourite of <a href='https://www.youtube.com/watch?v=sKm4YqadSGw'>Ariana Grande</a>.
