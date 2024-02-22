@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I joined the Singapore University of Technology and Design as a Research Assistant in the field of Robotics.
+Joined the Singapore University of Technology and Design as a Research Assistant in the field of Robotics.

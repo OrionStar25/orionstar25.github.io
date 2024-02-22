@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I joined <a href='https://www.gojek.io/'>GoTo (Gojek)</a> as a Software Engineer.
+Joined <a href='https://www.gojek.io/'>GoTo (Gojek)</a> as a Software Engineer.

@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I joined the National University of Singapore to pursue Masters in Computing (AI Specialization).
+Joined the National University of Singapore to pursue Masters in Computing (AI Specialization).

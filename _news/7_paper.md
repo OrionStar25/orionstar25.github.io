@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-My first paper got accepted at the IEEE 18th International Conference on Automation Science and Engineering (CASE).
+My first paper got accepted at the IEEE 18th International Conference on Automation Science and Engineering (CASE)!

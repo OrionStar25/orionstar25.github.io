@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I joined Synapxe (formerly IHIS) as a Data Science Intern in the domain of LLMs for healthcare.
+Joined <a href='https://www.synapxe.sg/'>Synapxe</a> (formerly IHIS) as a Data Science Intern in the domain of LLMs for healthcare.

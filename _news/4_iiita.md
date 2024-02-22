@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I graduated with First Class Honours and received the University Gold Medal from IIIT Allahabad for academic excellence and innovative achievements.
+Graduated with First Class Honours and received the University Gold Medal from IIIT Allahabad for academic excellence and innovative achievements.

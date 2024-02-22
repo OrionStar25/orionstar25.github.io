@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-My team of 6 won the Smart India Hackathon for building an intelligent R&D search and progress-tracking system for Dr. Reddy's Laboratories.
+My team of 6 won the <a href='https://www.sih.gov.in/'>Smart India Hackathon</a> for building an intelligent R&D search and progress-tracking system for Dr. Reddy's Laboratories.
