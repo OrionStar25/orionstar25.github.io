@@ -2,7 +2,7 @@
 layout: page
 title: opensource
 nav: true
-nav_order: 3
+nav_order: 2
 dropdown: true
 children:
     - title: presentations
