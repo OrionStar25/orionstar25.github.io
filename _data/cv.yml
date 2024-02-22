@@ -2,96 +2,129 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
+      value: Niharika Shrivastava
     - name: Date of Birth
-      value: 14th March 1879
+      value: 25 May 1998
     - name: Languages
-      value: English, German
-
+      value: English, Hindi
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: Master of Computing (AI Specialization)
+      institution: National University of Singapore, Singapore
+      year: 2024
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
+        - GPA - 4.4/5. Honours (Distinction).
+        - title: Key courses.
           contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+            - Trustworthy ML.
+            - Natural Language Processing.
+            - AI Planning and Decision Making.
+            - Uncertainty Modelling in AI.
+            - Neural Networks and Deep Learning.
+            - Knowledge Discovery and Data Mining.
+        - title: Teaching Assistant.
+          contents:
+            - Software Engineering (CS3203).
+            - Foundations of AI (CS3263).
+            - Big Data Systems (CS4225).
+    - title: Bachelor of Technology in Information Technology
+      institution: Indian Institute of Information Technology, Allahabad
+      year: 2020
       description:
-        - Description 1.
-        - Description 2.
-
+        - GPA - 9.23/10. First Class Honours.
+        - Recipient of the Prof. Dr.-Ing. Matthias Kleiner University Gold Medal
+          for academic and innovative excellence.
+        - Thesis - “Congestion-Aware Routing for Vehicles using Graph Search
+          Optimization and Game Theory”.
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: Graduate Research Assistant
+      institution: NUS Sound and Music Computing Lab, Singapore
+      year: 2023
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+        - Explored multi-modal LLMs with MIDI data to extract hierarchical
+          musical structures in pop songs.
+    - title: Data Science Intern
+      institution: Synapxe, Singapore
+      year: 2023
       description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
+        - Modelled a framework with large language models (LLMs) for generating
+          synthetic clinical reports.
+        - Evaluated zero-shot, few-shot, and chaining prompt techniques using
+          LangChain to generate medical reports for 5 major domains given a
+          public dataset (MIMIC-III).
+        - Performed fine-tuning of WizardVicuna 13B using QLoRA and increased
+          semantic utility by 7%.
+    - title: Software Engineer II
+      institution: GoTo (Gojek)
+      year: 2020-2022
       description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
+        - Maintained the Order Management System and related micro-services of
+          GoFood mobile app to ensure reliable ordering at a scale of 1M+
+          orders/day.
+        - Built high-throughput systems and enhanced system reliability by
+          adopting high-availability solutions such as Patroni PostgreSQL to
+          remove single-point failures.
+        - Led the architectural and design decisions for 3+ key customer-facing
+          issues for the GoFood app.
+    - title: Undergraduate Research Assistant
+      institution: SUTD Robotics Lab, Singapore
+      year: 2020
+      description:
+        - Developed a socio-optimal vehicle path-planning framework leveraging
+          Constraint Satisfaction Problems to provide congestion-free routes in
+          a city; with an 84% increase in network utilization.
+        - Proposed a novel algorithm for optimal path selection in a multi-class
+          set-up (combination of cars, public transport, walking) to dissipate
+          traffic in a capacity-bound transportation network; 64% decreased
+          travel time.
+    - title: Software Research Intern
+      institution: Outreachy (The Fedora Project)
+      year: 2019
 - title: Honors and Awards
   type: time_table
   contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
-
+    - year: 2023
+      items:
+        - Best Paper Award, Advanced Reinforcement Learning (CS6284)
+    - year: 2022
+      items:
+        - University of British Columbia Master of Data Science International
+          Scholarship
+    - year: 2020
+      items:
+        - Runner-Up, Red Hat Women in Open Source Academic Award
+        - Best Undergraduate Thesis Award
+        - Dean's Merit List
+    - year: 2019
+      items:
+        - Winner, Smart India Hackathon
+        - The Linux Foundation Diversity Scholarship
+    - year: 2018
+      items:
+        - Mozilla Open Source Recognition
+    - year: 2017
+      items:
+        - Dean's Merit List
 - title: Academic Interests
   type: nested_list
   contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
+    - title: Natural Language Processing.
       items:
-        - Description 1.
-        - Description 2.
-
+        - Large Language Models (LLMS).
+        - Search and Recommender systems.
+    - title: Trustworthy Machine Learning.
+      items:
+        - Robustness.
+        - Privacy.
+        - Fairness.
+    - title: Applied Machine Learning. 
+      items:
+        - Robotics. 
+        - Data Science.
 - title: Other Interests
   type: list
   contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+    - <u>Hobbies:</u> Singing, Swimming, Reading, Cooking.
