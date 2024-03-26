@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Darker part of the Internet"
-date:   2020-07-08
+date:   2019-07-08
 excerpt: "Unravel great depths of the Internet, literally"
 tag:
 - dark web 
@@ -9,7 +9,7 @@ tag:
 - tor
 - network security
 - jekyll
-thumbnail: https://www.paraxeno.com/wp-content/uploads/2019/04/deep-web-dark-web-internet-spam-hack-cyber-security.jpg
+thumbnail: https://images.indianexpress.com/2023/05/dark-web-featured.jpg?w=640
 ---
 
 Does your inner ethical hacker want to break the next matrix? Do you also feel completely indispensible by using "Incognito Mode" while internet surfing? Sadly, you're still not as "anonymous" as you thought.
