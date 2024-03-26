@@ -4,7 +4,7 @@ title: checklist
 permalink: /checklist/
 description: A growing collection of 100 things I want to do.
 nav: true
-nav_order: 4
+nav_order: 5
 display_categories: [work, fun]
 horizontal: false
 ---
