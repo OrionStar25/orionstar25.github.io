@@ -3,8 +3,8 @@ layout: page
 title: synthetic data generation
 description: another without an image
 img:
-importance: 3
-category: natural language processing
+importance: 2
+category: presented
 ---
 
 Every project has a beautiful feature showcase page.

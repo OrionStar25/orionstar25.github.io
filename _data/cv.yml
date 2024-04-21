@@ -39,7 +39,7 @@
 - title: Experience
   type: time_table
   contents:
-  - title: Data Scientist
+    - title: Data Scientist
       institution: Workforce Optimizer, Singapore
       year: 2024
       description:

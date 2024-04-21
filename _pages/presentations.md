@@ -4,7 +4,7 @@ title: presentations
 permalink: /presentations/
 description: A growing collection of my technical presentations in global conferences.
 nav: false
-nav_order: 1
+nav_order: 2
 display_categories: [accepted, presented]
 horizontal: true
 ---
