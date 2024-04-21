@@ -27,7 +27,7 @@
           contents:
             - Software Engineering (CS3203).
             - Foundations of AI (CS3263).
-            - Big Data Systems (CS4225).
+            - Big Data Systems for Data Science (CS4225).
     - title: Bachelor of Technology in Information Technology
       institution: Indian Institute of Information Technology, Allahabad
       year: 2020
@@ -35,11 +35,15 @@
         - GPA - 9.23/10. First Class Honours.
         - Recipient of the Prof. Dr.-Ing. Matthias Kleiner University Gold Medal
           for academic and innovative excellence.
-        - Thesis - “Congestion-Aware Routing for Vehicles using Graph Search
-          Optimization and Game Theory”.
+        - Thesis - “Congestion-Aware Routing for Multi-class Mobility-on-Demand Vehicles”.
 - title: Experience
   type: time_table
   contents:
+  - title: Data Scientist
+      institution: Workforce Optimizer, Singapore
+      year: 2024
+      description:
+        - Spearhead short-term labour demand forecasting for hospitals' large and complex workforce. 
     - title: Graduate Research Assistant
       institution: NUS Sound and Music Computing Lab, Singapore
       year: 2023
@@ -57,7 +61,7 @@
           public dataset (MIMIC-III).
         - Performed fine-tuning of WizardVicuna 13B using QLoRA and increased
           semantic utility by 7%.
-    - title: Software Engineer II
+    - title: Software Engineer II, Software Engineer I
       institution: GoTo (Gojek)
       year: 2020-2022
       description:

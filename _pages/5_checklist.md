@@ -38,7 +38,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 18. | Learn to play a music instrument | ❌ | Partial ukulele doesn't count |
 | 19. | Fall in love | ✅ |  |
 | 20. | Experience Zero gravity | ❌ |  |
-| 21. | Visit 100 countries | ❌ | Visited: 6 , With layovers: 5 |
+| 21. | Visit 100 countries | ❌ | Visited: 6 , With layovers: 11 |
 | 22. | Climb Great Pyramid of Giza, Egypt | ✅ |  |
 | 23. | Climb Great wall, China | ❌ |  |
 | 24. | Cook dinner for a date | ❌ |  |
@@ -54,7 +54,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 34. | Paraglide | ✅ |  |
 | 35. | River raft | ✅ |  |
 | 36. | Travel across Switzerland with parents | ❌ |  |
-| 37. | Buy expensive jewellery for momma | ✅ | I should probably keep it as ❌ as once is never enough! |
+| 37. | Buy expensive jewellery for momma | ✅ | I should probably keep it as ❌ because once is never enough! 😄 |
 | 38. | Go on a foreign trip with my best friend | ❌ |  |
 | 39. | Have a spectacular 25th birthday | ✅ |  |
 | 40. | Go on a fully sponsored international trip | ✅ |  |
