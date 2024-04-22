@@ -36,7 +36,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 16. | Go on a Camping Trip | ✅ | Solang Valley, Manali, 2012 |
 | 17. | See the Northern Lights | ❌ |  |
 | 18. | Learn to play a music instrument | ❌ | Partial ukulele doesn't count |
-| 19. | Fall in love | ✅ |  |
+| 19. | Fall madly in love with a fictional character | ✅ | Peeta Mellark 💜 |
 | 20. | Experience Zero gravity | ❌ |  |
 | 21. | Visit 100 countries | ❌ | Visited: 6 , With layovers: 11 |
 | 22. | Climb Great Pyramid of Giza, Egypt | ✅ |  |

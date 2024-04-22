@@ -6,7 +6,7 @@ description: A growing collection of my cool projects.
 nav: true
 nav_order: 3
 display_categories: [natural language processing, robotics, trustworthy ai, data science, fun]
-horizontal: false
+horizontal: true
 ---
 
 <!-- pages/projects.md -->

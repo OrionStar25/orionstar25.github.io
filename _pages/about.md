@@ -22,6 +22,6 @@ Welcome to my space 👋🏻! I am a postgraduate in Computing with a specializa
 
 My interests in the field of AI are diverse, ranging from <u>Natural Language Processing, to Applied Data Science, and Robotics</u>. However, I strongly believe that as AI becomes increasingly integrated into the lives of everyday consumers, it is paramount that we prioritize ethical considerations in our future model-building endeavors. Therefore, I am passionate about these multifaceted interdisciplinary challenges of building intelligent AI systems with a specific emphasis on <u>enhancing robustness and fairness</u> within them.
 
-Previously, I finished my B.Tech in Information Technology from the <a href ='https://www.iiita.ac.in/'>Indian Institute of Information Technology, Allahabad</a> (IIIT-A), advised by <a href="https://profile.iiita.ac.in/opvyas/">Prof. O.P. Vyas</a>.
+Previously, I finished my B.Tech in Information Technology from the <a href ='https://www.iiita.ac.in/'>Indian Institute of Information Technology, Allahabad</a> (IIIT-A), jointly advised by <a href="https://profile.iiita.ac.in/opvyas/">Prof. O.P. Vyas</a> and <a href="https://www.malikameghjani.com/">Asst. Prof. Malika Meghjani</a>.
 
 I am also an avid reader of books (fiction, adventure), love to sing, and engage in outdoor activities. I am currently obsessed with watching live performances of female song artists. Here's my all-time favourite of <a href='https://www.youtube.com/watch?v=sKm4YqadSGw'>Ariana Grande</a>.
