@@ -3,8 +3,6 @@ layout: page
 permalink: /repositories/
 title: repositories
 description: I use GitHub extensively to manage all my projects and initiatives 🛠️. I have contributed PRs to 3+ open source organizations... and counting 😄.
-nav: false
-nav_order: 1
 ---
 
 ## GitHub users

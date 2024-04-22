@@ -17,7 +17,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 
 
 | S. No. | Activity | Status | Remarks |
-| ---- | ---- | :----: | ---- |
+| :----: | ---- | :----: | ---- |
 | 1. | Live in Europe | ❌ |  |
 | 2. | Start a school in India | ❌ |  |
 | 3. | Become the first author of a paper at a top-tier conference | ❌ |  |

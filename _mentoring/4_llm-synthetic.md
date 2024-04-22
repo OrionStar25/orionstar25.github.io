@@ -3,8 +3,8 @@ layout: page
 title: synthetic data generation
 description: another without an image
 img:
-importance: 2
-category: presented
+importance: 3
+category: University
 ---
 
 Every project has a beautiful feature showcase page.
