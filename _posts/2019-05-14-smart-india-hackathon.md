@@ -13,6 +13,7 @@ tag:
 - python
 - jekyll
 thumbnail: https://pubhub.devnetcloud.com/media/sih/site/images/2019-logo/drawable-xxxhdpi/logo.png
+giscus_comments: true
 ---
 
 ## Say hello to, Smart India Hackathon!

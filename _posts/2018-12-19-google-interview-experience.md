@@ -9,6 +9,7 @@ tag:
 - interview
 - jekyll
 thumbnail: http://content.timesjobs.com/img/61544867/Master.jpg
+giscus_comments: true
 ---
 
 

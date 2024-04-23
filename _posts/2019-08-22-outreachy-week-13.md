@@ -15,6 +15,7 @@ tag:
 - fedora
 thumbnail: https://communityblog.fedoraproject.org/wp-content/uploads/2018/01/outreachy-generic.png
 categories: open-source
+giscus_comments: true
 ---
 
 > 🎶 *Country roads*     

@@ -14,6 +14,7 @@ tag:
 - modularity
 - fedora
 thumbnail: https://resources.workable.com/wp-content/uploads/2017/12/shutterstock_312253628.jpg
+giscus_comments: true
 ---
 
 2019 was an absolute blast for me and it isn't even over yet! I won a national-level hackathon, got good grades, completed TWO internships successfully, secured a job, attended my first technical conference, presented my Outreachy work in front of fellow Fedorans, gave a community talk and went to a foreign country without my parents(this one was my most commendable feat I think xD)! I have to admit I had been planning and trying out various options regarding my internships for over a year now. There were so many "things-should-go-this-way" timelines that I had created, and most of them were ultimately scraped off. But I can say confidently that things DID work out in the end and hardwork DID pay off and I am super grateful for that. 

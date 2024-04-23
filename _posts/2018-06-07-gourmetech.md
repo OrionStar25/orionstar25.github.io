@@ -8,6 +8,7 @@ tag:
 - technology
 - jekyll
 thumbnail: https://stardiariesweb.files.wordpress.com/2018/06/cover.jpeg
+giscus_comments: true
 ---
 
 Maybe its the topic that makes me want to write an entire blog about, but here you see an amalgamation of food(Gourmet) and technology(Tech) – the 2 most widely loved entities of this century.

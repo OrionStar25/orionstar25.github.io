@@ -15,6 +15,7 @@ tag:
 - modularity
 thumbnail: https://www.elegantthemes.com/blog/wp-content/uploads/2015/10/Best-WordPress-Timeline-Plugins.png
 categories: open-source
+giscus_comments: true
 ---
 
 Hello all! It's **Open Source Summer** coding season at **The Fedora Project**. Translations are pouring heavily at **Modularity**, a strong gust of **Happiness Packets** are incoming in from the East, **Fedora pipelines** are being modified to handle the frequent Fedora releases.

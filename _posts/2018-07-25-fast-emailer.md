@@ -9,6 +9,7 @@ tag:
 - python
 - jekyll
 thumbnail: https://cdn4.iconfinder.com/data/icons/email-2/128/Email_express_mail-512.png
+giscus_comments: true
 ---
 
 

@@ -5,6 +5,7 @@ date: 2024-04-21
 permalink: /checklist/
 nav: true
 nav_order: 5
+giscus_comments: true
 ---
 
 I've always had a dynamic checklist of things I want to do in life. However, I was inspired by [Chip Hyuen](https://huyenchip.com/list-100/) to officially list them down. This list is forever growing and I am looking forward to exciting external inputs (such as yours 🫵🏻) to extend it even further 📝.

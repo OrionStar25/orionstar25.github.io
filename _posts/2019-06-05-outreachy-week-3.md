@@ -15,6 +15,7 @@ tag:
 - modularity
 thumbnail: https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/UvUUs1WXEBgwWcMbhbQ_JB5tScafJWbz95oNsfYnIyQQWW.width-808.jpg
 categories: open-source
+giscus_comments: true
 ---
 
 We're into week 4 of Outreachy! And just when I thought I was *finally* getting the hang of Modularity's codebase, I ran into something I've dreaded my entire life: Segmentation faults, runtime errors, AND MEMORY LEAKS!

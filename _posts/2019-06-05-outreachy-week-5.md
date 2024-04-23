@@ -15,6 +15,7 @@ tag:
 - fedora
 thumbnail: https://docs.pagure.org/modularity/assets/logo.png
 categories: open-source
+giscus_comments: true
 ---
 
 This post explains my Outreachy project with Fedora Modularity in greater depth.

@@ -14,6 +14,7 @@ tag:
 - jekyll
 thumbnail: https://www.xda-developers.com/files/2017/06/opensourcefriday.png
 categories: open-source
+giscus_comments: true
 ---
 
 The title is true. And I can prove it.
