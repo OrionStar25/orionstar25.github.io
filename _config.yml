@@ -130,21 +130,24 @@ pagination:
 
 related_blog_posts:
   enabled: true
-  max_related: 5
+  max_related: 3
 
 # Giscus comments (RECOMMENDED)
 # Follow instructions on https://giscus.app/ to setup for your repo to fill out
 # the information below.
 giscus:
   repo: OrionStar25/orionstar25.github.io  # <your-github-user-name>/<your-github-repo-name>
-  category: Comments             # name of the category under which discussions will be created
+  category: Announcements             # name of the category under which discussions will be created
   mapping: title                 # identify discussions by post title
   strict: 1                      # use strict identification mode
   reactions_enabled: 1           # enable (1) or disable (0) emoji reactions
-  input_position: bottom         # whether to display input form below (bottom) or above (top) the comments
+  input_position: top         # whether to display input form below (bottom) or above (top) the comments
   theme: preferred_color_scheme  # name of the color scheme (preferred works well with al-folio light/dark mode)
   emit_metadata: 0
   lang: en
+  category_id: DIC_kwDOK7Nn4c4Ce3KD
+  repo_id: R_kgDOK7Nn4Q
+  loading: lazy
 
 # Disqus comments (DEPRECATED)
 disqus_shortname: al-folio # put your disqus shortname
