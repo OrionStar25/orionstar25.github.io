@@ -1,11 +1,11 @@
 ---
 layout: page
-title: intrusion detection
-description: a project with a background image
-img: assets/img/12.jpg
+title: Intrusion Detection
+description: Detect intrusive attacks on streaming data using ML
+img:
 importance: 1
-category: trustworthy ai
-related_publications:
+category: Trustworthy AI
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

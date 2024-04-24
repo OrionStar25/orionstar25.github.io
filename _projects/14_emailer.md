@@ -1,11 +1,11 @@
 ---
 layout: page
-title: fast-emailer
-description: a project with a background image
-img: assets/img/12.jpg
+title: Fast-Emailer
+description: A Python app to send mass, redundant emails quickly!
+img:
 importance: 1
 category: fun
-related_publications:
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

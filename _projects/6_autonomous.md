@@ -1,10 +1,11 @@
 ---
 layout: page
-title: autonomous driving in duckietown
-description: a project with no image
+title: Autonomous Driving in Duckietown
+description: Simulate autonomous driving in OpenAI Gym using imitation learning and A-Star search algorithm.
 img:
-importance: 4
-category: robotics
+importance: 1
+category: Robotics
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

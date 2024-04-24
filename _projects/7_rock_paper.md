@@ -1,11 +1,11 @@
 ---
 layout: page
-title: rock, paper, scissors
-description: a project with a background image
-img: assets/img/12.jpg
+title: Rock, Paper, Scissors!
+description: Your favourite game, now on web!
+img: 
 importance: 1
-category: fun
-related_publications:
+category: Fun
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

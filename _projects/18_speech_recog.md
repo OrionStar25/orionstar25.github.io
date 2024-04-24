@@ -1,11 +1,11 @@
 ---
 layout: page
-title: attention-based speech recognition
-description: a project with a background image
-img: assets/img/12.jpg
+title: Attention-Based Speech Recognition
+description: Enhance speech recognition by intelligently adding attention to vowels.
+img:
 importance: 1
-category: natural language processing
-related_publications:
+category: Natural Language Processing
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

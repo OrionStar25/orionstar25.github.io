@@ -1,10 +1,11 @@
 ---
 layout: page
-title: retrieval and recommendation
-description: a project with a background image
-img: assets/img/1.jpg
+title: Retrieval and Search for Cisco Products
+description: Explores data collection, visualisation, and retrieving search results for 1M+ documents.
+img: 
 importance: 3
-category: natural language processing
+category: Natural Language Processing
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

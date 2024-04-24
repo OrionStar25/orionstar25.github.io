@@ -1,10 +1,11 @@
 ---
 layout: page
-title: synthetic data generation
-description: another without an image
+title: Synthetic Data Generation using LLMs
+description: A framework for researchers to generate synthetic clinical reports for various domains.
 img:
-importance: 3
-category: natural language processing
+importance: 2
+category: Natural Language Processing
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

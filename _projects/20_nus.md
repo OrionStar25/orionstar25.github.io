@@ -1,11 +1,10 @@
 ---
 layout: page
-title: nus
-description: a project with a background image
-img: assets/img/12.jpg
+title: All NUS projects
+description: Need to add (5+)
+img:
 importance: 1
-category: data science
-related_publications:
+category: Data Science
 ---
 
 Every project has a beautiful feature showcase page.

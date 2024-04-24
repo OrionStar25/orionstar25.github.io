@@ -1,11 +1,11 @@
 ---
 layout: page
-title: download-stuff
-description: a project with a background image
-img: assets/img/12.jpg
+title: Download-Stuff
+description: An application to download your favourite YouTube videos locally.
+img:
 importance: 1
-category: fun
-related_publications:
+category: Fun
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

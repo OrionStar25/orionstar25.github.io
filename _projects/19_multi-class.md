@@ -1,11 +1,11 @@
 ---
 layout: page
-title: multi-class fleet management
-description: a project with a background image
-img: assets/img/12.jpg
+title: Multi-Class Fleet Management
+description: Provide congestion-free routes to all customers by solving a Constraint Satifaction Problem.
+img:
 importance: 1
-category: robotics
-related_publications:
+category: Robotics
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

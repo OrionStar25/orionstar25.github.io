@@ -1,11 +1,11 @@
 ---
 layout: page
-title: hangman
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
-importance: 3
-category: natural language processing
+title: Hangman
+description: Use AI to play the classic Hangman!
+img: 
+importance: 1
+category: Natural Language Processing
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

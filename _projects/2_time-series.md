@@ -1,10 +1,10 @@
 ---
 layout: page
-title: time-series forecasting
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
+title: Time-Series Forecasting for Walmart Sales
+description: A deep-dive into EDA, feature engineering and predictive modelling.
+img:
 importance: 2
-category: data science
+category: Data Science
 giscus_comments: true
 ---
 

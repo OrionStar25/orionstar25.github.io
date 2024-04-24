@@ -1,11 +1,11 @@
 ---
 layout: page
-title: driver-allocation
-description: a project with a background image
-img: assets/img/12.jpg
+title: Driver Allocation for E-Commerce
+description: Use ML to allocate drivers based on dynamic demand. 
+img:
 importance: 1
-category: data science
-related_publications:
+category: Data Science
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

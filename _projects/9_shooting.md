@@ -1,11 +1,11 @@
 ---
 layout: page
-title: shooting
-description: a project with a background image
-img: assets/img/12.jpg
+title: Shooting Game
+description: A fun colourful Javascript game!
+img:
 importance: 1
-category: fun
-related_publications:
+category: Fun
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.
