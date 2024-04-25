@@ -5,7 +5,7 @@ permalink: /projects/
 description: A growing collection of my cool projects.
 nav: true
 nav_order: 3
-display_categories: [Natural Language Processing, Robotics, Trustworthy AI, Data Science, Fun]
+display_categories: [Natural Language Processing, Data Science, Trustworthy AI, Robotics, Fun]
 horizontal: true
 ---
 
