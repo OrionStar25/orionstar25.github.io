@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Coordinator, Blockchain Wing, GeekHaven
+title: Blockchain @ GeekHaven
 img: assets/img/geekhaven.png
 importance: 2
 category: University

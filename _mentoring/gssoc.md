@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mentor, GirlScript Summer of Code
+title: GirlScript Summer of Code
 img: assets/img/gssoc.png
 importance: 1
 category: National

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mentor, Google Code-In
+title: Google Code-In
 img: assets/img/gci.png
 importance: 1
 category: International

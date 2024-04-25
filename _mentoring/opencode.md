@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mentor, OpenCode, IIIT Allahabad
+title: OpenCode, IIIT Allahabad
 img: assets/img/opencode.png
 importance: 1
 category: University
