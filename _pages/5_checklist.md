@@ -12,7 +12,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 
 | Updated On | Progress | Total | Percentage |
 | :----: | :-----: | :----: | :----: |
-| April 21, 2024 | 29 | 85 | 34.11% |
+| May 14, 2024 | 34 | 90 | 37.78% |
 
 --------
 
@@ -53,7 +53,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 32. | Give a keynote | ❌ |  |
 | 33. | Solo travel across Europe | ❌ |  |
 | 34. | Paraglide | ✅ |  |
-| 35. | River raft | ✅ |  |
+| 35. | River raft | ✅ | 14kms Kulu-Manali, and I jumped in the water volunteerily 🛶 |
 | 36. | Travel across Switzerland with parents | ❌ |  |
 | 37. | Buy expensive jewellery for momma | ✅ | I should probably keep it as ❌ because once is never enough! 😄 |
 | 38. | Go on a foreign trip with my best friend | ❌ |  |
@@ -87,14 +87,14 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 66. | Get a massage in Thailand | ❌ |  |
 | 67. | Visit Amsterdam | ❌ | |
 | 68. | Eat at the top of Marina Bay Sands Hotel, Singapore | ❌ |  |
-| 69. | Stay at Burj Al Arab | ❌ |  |
+| 69. | Do the high-heel boots, coffee-in-hand working woman bit in Times Square | ❌ |  |
 | 70. | Win something in a casino | ❌ |  |
-| 71. | Watch a movie in an open air theatre | ❌ |  |
+| 71. | Watch a movie in an open air theatre | ✅ | |
 | 72. | Learn how to do exceptional makeup | ❌ |  |
-| 73. | Visit all states in India | ❌ | 22/28 |
+| 73. | Visit all states in India | ❌ | 22/28 states, 7/8 union territories |
 | 74. | Go on a meditation retreat for a week | ❌ |  |
 | 75. | Visit Rome just like Dan Brown's Angels and Demons | ❌ |  |
-| 76. | See penguins | ✅ |  |
+| 76. | See penguins in their natural habitat | ✅ | Capetown, SA |
 | 77. | Learn to snowboard | ❌ |  |
 | 78. | Play really good badminton | ✅ |  |
 | 79. | Learn 5 sports properly | ✅ |  |
@@ -104,3 +104,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 83. | Hold a leadership position in big tech | ❌ |  |
 | 84. | Watch basketball in a stadium | ❌ |  |
 | 85. | Watch football in a stadium | ❌ |  |
+| 86. | Be a [live audience member](https://www.drphil.com/be-in-the-audience) for Dr. Phil 👴🏻 | ✅ | I was selected as a virtual audience during one of their COVID tapings! |
+| 87. | Go on top of the tallest building - Burj Khalifa  | ✅ | 157th floor 🏙️! |
+| 89. | Boat ride in the longest river in the world - Nile!  | ✅ | |
+| 90. | Experience snowfall | ✅ | My favourite memory is eating fresh snow and building a snowman on a glacier ☃️ |
