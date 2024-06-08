@@ -11,6 +11,7 @@ I frequently submit proposals to technical conferences globally. Below is a list
 
 | S. No. | Date | Title | Conference | Status | Session Type | Links |
 | :----: | ---- | ---- | ---- | :----: | :----: | :---: |
+| 12. | June 22, 2024 | Build and Evaluate LLM RAG Applications | [Google I/O Extended 2024 - Cloud](https://gdg.community.dev/events/details/google-gdg-cloud-mumbai-presents-google-io-extended-2024-cloud/), Mumbai | ACCEPTED ✔ | Workshop (45 mins) |
 | 11. | April 8, 2024 | Adversarially attack ML models. Now defend against them! | [FOSSASIA Summit](https://eventyay.com/e/55d2a466), Vietnam | ACCEPTED ✔ | Talk (25 mins) |
 | 10. | October 17, 2023 | Synthetic Clinical Reports Generation using LLMs | [PyTorch Conference](https://pytorch.org/blog/pytorch-conference-2023/), San Francisco, CA | ACCEPTED ✔ | Lightning Talk (10 mins) | |
 | 9. | October 11, 2022 | Software Engineering at Practice | National University of Singapore: CS3203 Industry sessions | DELIVERED 🎤 | Panel Discussion | [Article](https://tinyurl.com/bdhw3phn) |
