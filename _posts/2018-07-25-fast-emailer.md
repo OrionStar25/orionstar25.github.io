@@ -2,7 +2,7 @@
 layout: post
 title:  "Fast-Emailer"
 date:   2018-07-25
-excerpt: "Send mass custom emails at lightening fast speed!"
+description: "Send mass custom emails at lightening fast speed!"
 tag:
 - automation 
 - technology

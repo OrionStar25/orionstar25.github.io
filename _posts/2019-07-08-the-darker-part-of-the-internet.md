@@ -2,7 +2,7 @@
 layout: post
 title:  "The Darker part of the Internet"
 date:   2019-07-08
-excerpt: "Unravel great depths of the Internet, literally"
+description: "Unravel great depths of the Internet, literally"
 tag:
 - dark web 
 - deep web

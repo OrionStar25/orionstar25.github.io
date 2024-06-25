@@ -2,7 +2,7 @@
 layout: post
 title:  "My first ever Google Interview"
 date:   2018-12-19
-excerpt: "I got a chance to interview for an SWE intern role at Google, India!"
+description: "I got a chance to interview for an SWE intern role at Google, India!"
 tag:
 - Google 
 - technology

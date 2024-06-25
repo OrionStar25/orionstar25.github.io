@@ -2,7 +2,7 @@
 layout: post
 title:  "GourmeTech"
 date:   2018-06-07
-excerpt: "Even developers love taking inspiration from food!"
+description: "Even developers love taking inspiration from food!"
 tag:
 - food 
 - technology

@@ -2,7 +2,7 @@
 layout: post
 title:  "ReSpec- My Interpretation"
 date:   2019-02-19
-excerpt: "My project repo for GSOC'18 selections"
+description: "My project repo for GSOC'18 selections"
 tag:
 - W3C 
 - ReSpec

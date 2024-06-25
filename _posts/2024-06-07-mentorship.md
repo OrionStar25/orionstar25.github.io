@@ -2,7 +2,7 @@
 layout: post
 title:  "Seeking mentors help navigate the Industry"
 date:   2024-06-07
-excerpt: "I pen down my experiences of finding mentors to help me navigate commom industry challenges"
+description: "I pen down my experiences of finding mentors to help me navigate commom industry challenges"
 tag:
 - industry
 - mentoring

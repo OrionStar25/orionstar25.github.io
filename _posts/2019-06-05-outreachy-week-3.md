@@ -2,7 +2,7 @@
 layout: post
 title:  "Let's hunt those Memory Leaks!"
 date:   2019-06-05
-excerpt: "I learn more when I make mistakes"
+description: "I learn more when I make mistakes"
 tag:
 - open source
 - outreachy

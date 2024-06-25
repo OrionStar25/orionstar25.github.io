@@ -2,7 +2,7 @@
 layout: post
 title:  "Language is a bridge, not a barrier"
 date:   2019-06-05
-excerpt: "My Outreachy project, and a rough timeline of how I'm going to implement it"
+description: "My Outreachy project, and a rough timeline of how I'm going to implement it"
 tag:
 - open source
 - outreachy

@@ -2,7 +2,7 @@
 layout: post
 title:  "IT'S A WRAP!"
 date:   2019-08-22
-excerpt: "Bye bye Outreachy, thank you for making me capable 💓"
+description: "Bye bye Outreachy, thank you for making me capable 💓"
 tag:
 - open source
 - outreachy

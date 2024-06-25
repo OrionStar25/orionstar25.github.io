@@ -2,7 +2,7 @@
 layout: post
 title:  "The Open Source community is more welcoming than your next-door neighbour"
 date:   2019-05-30
-excerpt: "An honest, beginner's guide of contributing to Open Source Software"
+description: "An honest, beginner's guide of contributing to Open Source Software"
 tag:
 - open source
 - technology

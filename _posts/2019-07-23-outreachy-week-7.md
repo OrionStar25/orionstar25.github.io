@@ -2,7 +2,7 @@
 layout: post
 title:  "Season @ Fedora Modularity"
 date:   2019-07-23
-excerpt: "Progress report for my Outreachy project at Fedora Modularity"
+description: "Progress report for my Outreachy project at Fedora Modularity"
 tag:
 - open source
 - outreachy

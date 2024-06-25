@@ -2,7 +2,7 @@
 layout: post
 title:  "To team Bit N' Bytes!"
 date:   2019-05-14
-excerpt: "Reliving my experience on winning the Smart India Hackthon, 2019"
+description: "Reliving my experience on winning the Smart India Hackthon, 2019"
 tag:
 - hackathon 
 - technology

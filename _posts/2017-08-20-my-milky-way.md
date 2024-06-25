@@ -2,7 +2,7 @@
 layout: post
 title:  "My Milky Way"
 date:   2017-08-20
-excerpt: "My ongoing technical journey in IIIT-Allahabad"
+description: "My ongoing technical journey in IIIT-Allahabad"
 tag:
     - computers 
     - development
