@@ -5,14 +5,12 @@ date:   2024-06-07
 excerpt: "I pen down my experiences of finding mentors to help me navigate commom industry challenges"
 tag:
 - industry
-- mentor
 - mentoring
 - experience
 - opportunities
 - artificial intelligence
-- machine learning
+- career
 thumbnail: assets/img/mentor.jpeg
-categories: open-source
 giscus_comments: true
 ---
 
@@ -45,6 +43,7 @@ The truth is:
 1. AI is irrefutably up and coming. You can see it, I can see it, there is no denying it. We're literally living the AI revolution right now. 
 
 2. This automatically means that there *will* be a high demand for core AI skills in the future. I have already started seeing a slight surge in AI jobs albeit some restrictions<span style="color:blue">**</span>.
+
 3. However, currently the global industry is in a transitioning phase themselves. They're riddled with recession and how to *use* AI for their usecase (or should they even?).
 
 4. And due to this reason, I see most companies requiring a minimum PhD for core AI entry-level jobs. They require an expert in the field to shape how AI can be used for the company ➡️ a completely reasonable requirement!
