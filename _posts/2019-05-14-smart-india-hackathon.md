@@ -102,4 +102,4 @@ P.S.: They had a slot booked for `recreational activities` where they set up a D
 
 Here's the link to our entire [project](https://github.com/OrionStar25/Smart-India-Hackathon-2019) and here's a picture of us sleep-deprived and happy :)
 
-![Yayy](https://scontent.fbom19-2.fna.fbcdn.net/v/t1.0-9/53563600_2247968115264508_6424803473136549888_n.jpg?_nc_cat=104&_nc_ht=scontent.fbom19-2.fna&oh=62bd3ddec70432283ddba9ff19fee536&oe=5D55B35B)
+![Yayy](assets/img/sih.jpg)
