@@ -102,4 +102,8 @@ P.S.: They had a slot booked for `recreational activities` where they set up a D
 
 Here's the link to our entire [project](https://github.com/OrionStar25/Smart-India-Hackathon-2019) and here's a picture of us sleep-deprived and happy :)
 
-![Yayy](assets/img/sih.jpg)
+<div class="row justify-content-sm-center">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        {% include figure.html path="assets/img/sih.jpg" title="image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>

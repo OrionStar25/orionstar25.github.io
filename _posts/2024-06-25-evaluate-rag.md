@@ -4,14 +4,12 @@ title:  "[WIP] The RAG Triad - Metrics to evaluate Advanced RAG"
 date:   2024-06-25
 description: "Evaluate advanced RAG using meaningful metrics such as answer relevance, context relevance, and groundedness."
 tag:
-- retrieval augmented generation
 - rag
+- evaluation
 - opensource
 - mistral
-- llamaindex
 - generative ai
-- artificial intelligence
-thumbnail: assets/img/mentor.jpeg
+thumbnail: assets/img/triad.png
 categories: artificial-intelligence
 giscus_comments: true
 ---
