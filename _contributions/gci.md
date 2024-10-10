@@ -2,7 +2,7 @@
 layout: page
 title: Google Code-In
 img: assets/img/gci.png
-importance: 1
+importance: 3
 category: International
 ---
 

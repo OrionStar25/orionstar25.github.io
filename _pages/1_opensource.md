@@ -5,12 +5,12 @@ nav: true
 nav_order: 1
 dropdown: true
 children:
-    - title: github
-      permalink: /repositories/
-    - title: divider
     - title: presentations
       permalink: /presentations/
     - title: divider
-    - title: mentoring
-      permalink: /mentoring/
+    - title: contributions
+      permalink: /contributions/
+    - title: divider
+    - title: github
+      permalink: /repositories/
 ---

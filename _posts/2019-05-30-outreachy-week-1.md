@@ -42,7 +42,7 @@ I had heard about GSoC during my 1st year of university, in a talk given by [Sap
 I chose Outreachy over GSoC for a couple of reasons:
 
 1. I can't be an Outreachy intern if I've been a GSoC intern previously(not applicable vice-a-versa).
-2. While both the programmes promote awareness about opensource, Outreachy also hugley promoted diversity. This is something I strongly believe in and have been advocating it during my entire college life.
+2. While both the programmes promote awareness about opensource, Outreachy also hugely promoted diversity. This is something I strongly believe in and have been advocating it during my entire college life.
 3. Its a little easier(can also say faster) to start contributing to an Outreachy project than a GSoc one. The codebase is generally intuitive, the pool of people applying is very focused, and mentors give greater attention to individuals.
 4. And the stipend is a little too cool xD. We also get an additional $500 as trival stipend and I feel its such a brilliant way to engage people to explore and expand their physical boundaries!
 
