@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2020-07-12 15:59:00-0400
+date: 2020-08-12 15:59:00-0400
 inline: true
 related_posts: false
 ---
 
-Graduated with First Class Honours and received the University Gold Medal from IIIT Allahabad for academic excellence and innovative achievements.
+Graduated with a B.Tech in Information Technology from IIIT Allahabad. Awarded the Prof. Dr.-Ing. Matthias Kleiner University Gold Medal for academic excellence and innovative achievements.

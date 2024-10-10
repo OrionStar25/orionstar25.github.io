@@ -11,7 +11,7 @@ thumbnail: assets/img/graduation.jpeg
 giscus_comments: true
 ---
 
-TLDR; After 18 months of hard work, I am proud to graduate with a Master’s degree in Computing with a specialization in Artificial Intelligence!
+> **TLDR;** After 18 months of hard work, I am proud to graduate with a Master’s degree in Computing with a specialization in Artificial Intelligence!
 
 ***
 
