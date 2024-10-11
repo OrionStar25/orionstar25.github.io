@@ -6,6 +6,12 @@ importance: 1
 category: International
 ---
 
+## About The Fedora Project
+
+> The Fedora Project is an independent project to co-ordinate the development of Fedora Linux, a Linux-based operating system, operating with the vision of "a world where everyone benefits from free and open source software built by inclusive, welcoming, and open-minded communities. "The project's mission statement is to create "an innovative platform for hardware, clouds, and containers that enables software developers and community members to build tailored solutions for their users".
+
+ref.: [Link](https://en.wikipedia.org/wiki/Fedora_Project)
+
 ## My involvement 👩🏻‍🏫
 
 I am a:
