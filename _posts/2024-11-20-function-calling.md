@@ -35,7 +35,7 @@ Typically, a chain contains the following components seperated by the `|` operat
 > Prompt | LLM | OutputParser
 
 Below is a code example to use LCEL and an LLM to generate a chain.
-```
+```python
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
@@ -58,7 +58,7 @@ chain = prompt | model | output_parser
 chain.invoke({"topic": "bears"})
 ```
 **Output:**
-```
+```python
 "Why do bears have hairy coats?\n\nBecause they don't like to shave!"
 ```
 
@@ -76,7 +76,7 @@ The purpose of function-calling is:
 This process helps the developer to then execute the relevant function with the arguments to generate the desired response. A function could be a custom function written by the developer or an API call that generates an output based on given arguments.
 
 OpenAI models expect the functions to be defined in the following format:
-```
+```python
 functions = [
    {
       "name": <function_name>,
@@ -97,7 +97,7 @@ functions = [
 ```
 
 Let's take an example with 2 custom defined functions `weather_search` and `sports_search`:
-```
+```python
 # Define the functions
 functions = [
     {
@@ -146,16 +146,16 @@ runnable = prompt | model
 ```
 
 Invoke the chain with a sports-related question:
-```
+```python
 runnable.invoke({"input": "how did the patriots do yesterday?"})
 ```
 **Output:**
-```
+```python
 AIMessage(content='', additional_kwargs={'function_call': {'name': 'sports_search', 'arguments': '{"team_name":"New England Patriots"}'}})
 ```
 - `content` is empty because the LLM determined that a function needs to be called in order to generate a response.
 - `function_call` containts the following information:
-```
+```python
 'function_call': {
    'name': 'sports_search', # the custom function that needs to be called 
    'arguments': '{"team_name":"New England Patriots"}' # the arguments to the function.
@@ -164,11 +164,11 @@ AIMessage(content='', additional_kwargs={'function_call': {'name': 'sports_searc
 The LLM automatically determined that `patriots` in the user query referred to the `New England Patriots` which is a sports team. Interesting!
 
 Now, let's invoke the chain with a weather related question:
-```
+```python
 runnable.invoke({"input": "what is the weather in sf"})
 ```
 **Output:**
-```
+```python
 AIMessage(content='', additional_kwargs={'function_call': {'name': 'weather_search', 'arguments': '{"airport_code":"SFO"}'}})
 ```
 This time, the LLM determined that the function `weather_search` needs to be called with the argument `airport_code=SFO` where `SFO` stands for San Francisco!
@@ -182,7 +182,7 @@ Pydantic is a Python library for data validation using Python-type annotations. 
 
 Thus, Pydantic will help us define LLM functions with ease. Let's look at an example:
 
-```
+```python
 # Define a Pydantic class which refers to a function
 # The fields of the class refer to function arguments
 # The docstring used to describe the class is mandatory as it helps the LLM understand what the purpose of the function is. 
@@ -195,7 +195,7 @@ from langchain.utils.openai_functions import convert_pydantic_to_openai_function
 convert_pydantic_to_openai_function(WeatherSearch)
 ```
 **Output:**
-```
+```python
 {'name': 'WeatherSearch', # name of the class
  'description': 'Call this with an airport code to get the weather at that airport', # Pulled from the docstring used to describe the class.
  'parameters': {'title': 'WeatherSearch',
@@ -208,7 +208,7 @@ convert_pydantic_to_openai_function(WeatherSearch)
 ```
 
 Let's create multiple functions using Pydantic!
-```
+```python
 # Custom function with 2 args
 class ArtistSearch(BaseModel):
     """Call this to get the names of songs by a particular artist"""
@@ -225,29 +225,29 @@ model_with_functions = model.bind(functions=functions)
 ```
 
 Invoking with weather related question:
-```
+```python
 model_with_functions.invoke("what is the weather in sf?")
 ```
 **Output:**
-```
+```python
 AIMessage(content='', additional_kwargs={'function_call': {'name': 'WeatherSearch', 'arguments': '{"airport_code":"SFO"}'}})
 ```
 
 Invoking with artist related question:
-```
+```python
 model_with_functions.invoke("what are three songs by taylor swift?")
 ```
 **Output:**
-```
+```python
 AIMessage(content='', additional_kwargs={'function_call': {'name': 'ArtistSearch', 'arguments': '{"artist_name":"Taylor Swift","n":3}'}})
 ```
 
 Default behaviour:
-```
+```python
 model_with_functions.invoke("hi!")
 ```
 **Output:**
-```
+```python
 AIMessage(content='Hello! How can I assist you today?')
 ```
 
@@ -258,7 +258,7 @@ Concept extraction is an NLP task that automatically identifies and extracts spe
 
 Let's see how function-calling can help us solve this task of extracting all the papers and their respective authors mentioned in an unstructured article with ease.
 
-```
+```python
 # Load unstructured text from the internet
 from langchain.document_loaders import WebBaseLoader
 loader = WebBaseLoader("https://lilianweng.github.io/posts/2023-06-23-agent/")
@@ -303,7 +303,7 @@ extraction_chain.invoke({"input": page_content})
 ```
 
 **Output:**
-```
+```python
 [{'title': 'Chain of thought (CoT; Wei et al. 2022)', 'author': 'Wei et al. 2022'},
  {'title': 'Tree of Thoughts (Yao et al. 2023)', 'author': 'Yao et al. 2023'},
  {'title': 'LLM+P (Liu et al. 2023)', 'author': 'Liu et al. 2023'},
