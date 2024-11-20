@@ -24,19 +24,6 @@ https://cloud.google.com/vertex-ai/docs/tutorials/jupyter-notebooks#vertex-ai-wo
 
 start with:
 
-1. what is rag?
-    - how is it different than fie-tuning?
-    - ways of evaluating rag
-        - humans
-        - static scores
-            - precision
-            - recall
-            - bleu, rouge
-        - use another llm
-            - since broad capabilities
-            - varied human preferences
-
-
 2. Steps in evaluating RAG
     - Build RAG
     - Build a evaluation dataset
