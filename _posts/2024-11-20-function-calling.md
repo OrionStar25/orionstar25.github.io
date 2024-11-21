@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Functions, Tools, and Agents"
-date:   2024-11-01
+date:   2024-11-20
 description: "Understand the capabilities of LLMs to the fullest."
 tag:
 - opensource
