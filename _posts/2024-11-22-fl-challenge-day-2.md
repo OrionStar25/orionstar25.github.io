@@ -18,7 +18,7 @@ giscus_comments: true
 
 It's Day 2 of the [#30DaysOfFLCode](https://info.openmined.org/30daysofflcode) Challenge by [OpenMined](https://openmined.org/) 🥳!
 
-Today I went through the video: [Privacy Preserving AI (Andrew Trask) | MIT Deep Learning Series](https://www.youtube.com/watch?v=4zrU54VIK6k).
+Today I went through the video: [Privacy Preserving AI by Andrew Trask: MIT Deep Learning Series](https://www.youtube.com/watch?v=4zrU54VIK6k).
 
 Below are my notes from the talk ⬇️.
 
@@ -44,31 +44,34 @@ However, there is a possibility of stealing/reconstructing sensitive data using 
 
 ## Tool 3: Differential Privacy
 
-Differential Privacy is a framework that ensures an algorithm's output does not reveal whether any specific individual’s data was included in the input dataset. Formally, a mechanism is \((\epsilon, \delta)\)-differentially private if, for any two datasets \(D_1\) and \(D_2\) differing in at most one record, and for all possible outputs \(S\):
+Differential Privacy is a framework that ensures an algorithm's output does not reveal whether any specific individual’s data was included in the input dataset. Formally, a mechanism is $(\epsilon, \delta)$-differentially private if, for any two datasets $D_1$ and $D_2$ differing in at most one record, and for all possible outputs $S$:
 
-\[
+$$[
 P[\mathcal{M}(D_1) \in S] \leq e^\epsilon \cdot P[\mathcal{M}(D_2) \in S] + \delta
-\]
+]
+$$
 
 This guarantees that the output remains statistically similar regardless of an individual’s participation, ensuring privacy.
 
 ### Sensitivity:
 Sensitivity quantifies the maximum change in an algorithm's output due to the inclusion or exclusion of a single data point in the dataset. It is defined as:
 
-\[
+$$
+[
 \Delta f = \max_{D_1, D_2} ||f(D_1) - f(D_2)||
-\]
+]
+$$
 
-where \(f\) is the query or function, and \(D_1, D_2\) are datasets differing in one record. Lower sensitivity functions make it easier to achieve differential privacy.
+where $f$ is the query or function, and $D_1, D_2$ are datasets differing in one record. Lower sensitivity functions make it easier to achieve differential privacy.
 
-### Epsilon (\(\epsilon\), Privacy Budget):
-Epsilon is a parameter that measures the privacy loss in a differentially private mechanism. Smaller values of \(\epsilon\) provide stronger privacy guarantees but reduce the accuracy of the results. Conversely, larger \(\epsilon\) allows better accuracy but weaker privacy. 
+### Epsilon $\epsilon$ (Privacy Budget):
+Epsilon is a parameter that measures the privacy loss in a differentially private mechanism. Smaller values of $\epsilon$ provide stronger privacy guarantees but reduce the accuracy of the results. Conversely, larger $\epsilon$ allows better accuracy but weaker privacy. 
 
-The "privacy budget" refers to the cumulative \(\epsilon\) used across multiple queries; once it's exhausted, the mechanism risks breaching privacy guarantees.
+The "privacy budget" refers to the cumulative $\epsilon$ used across multiple queries; once it's exhausted, the mechanism risks breaching privacy guarantees.
 
 ### Types of Differential Privacy:
 
-#### **Local Differential Privacy (LDP):**
+#### Local Differential Privacy (LDP):
 LDP ensures privacy at the individual data level, meaning each data contributor perturbs their model weights before sharing it with the server. The server never sees raw data. This approach requires:
 
 - Trust in the data contributors.
@@ -78,7 +81,7 @@ LDP ensures privacy at the individual data level, meaning each data contributor 
 
 **Limitation:** Results may be noisier compared to global DP due to individual perturbation.
 
-#### **Global Differential Privacy (Centralized DP):**
+#### Global Differential Privacy (Centralized DP):
 In global DP, raw data is collected centrally, and noise is added at the aggregate level (e.g., during analysis). The server is assumed to be trusted not to misuse raw data.
 
 **Advantages:**
