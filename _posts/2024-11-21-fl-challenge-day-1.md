@@ -85,12 +85,6 @@ Thus, we'll now see a big advantage of FL is that all parties can learn from eac
 
 # Federated Learning Process
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="https://framerusercontent.com/images/pGx10j45WZIitkcA6GjZ2SITMw.webp" title="image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
 ![](https://framerusercontent.com/images/pGx10j45WZIitkcA6GjZ2SITMw.webp)
 
 ## Algorithm
@@ -392,11 +386,11 @@ def server_fn(context: Context):
 
 That is all for today folks! Blogging + learning is a long process haha, but I'm glad I learnt a bunch today!
 
-See you tomorrow :Dz
+See you tomorrow :D
 
 
 # References
 
-[1] https://learn.deeplearning.ai/courses/intro-to-federated-learning/
+[1] [https://learn.deeplearning.ai/courses/intro-to-federated-learning/](https://learn.deeplearning.ai/courses/intro-to-federated-learning/)
 
-[2] https://www.v7labs.com/blog/federated-learning-guide
+[2] [https://www.v7labs.com/blog/federated-learning-guide](https://www.v7labs.com/blog/federated-learning-guide)
