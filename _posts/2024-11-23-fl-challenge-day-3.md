@@ -24,7 +24,7 @@ Let's quickly learn a few concepts ⬇️.
 
 # Introduction
 
-<add image>
+<!-- add image -->
 
 A lot of private data was able to be extracted and reconstructed from multiple open source LLMs' pre-training dataset. Federated Learning is the missing piece of LLMs and private data. This is an alternative to conventional LLM fine-tuning, allowing you to avoid:
 - using closed fune-tuning APIs.
@@ -40,14 +40,16 @@ Key strengths of Federated LLM fine-tuning are:
 
 We would be working with a medical private data scenario, but the concepts can be extended to any industry with private datasets. The idea is that different hospitals have different sets of private data which would be cenrally collected. This entire data will then be used to fine-tune an LLM and the final model will be shared with all the participating hospitals.
 
-We are going to use `medAlpaca` <add link> - an open source collection of medical conversational AI training data and models. It has the following properties:
+We are going to use `medAlpaca` 
+<!-- <add link> -->
+ - an open source collection of medical conversational AI training data and models. It has the following properties:
 - 50k training examples
 - includes Q&A pairs
 - variety of medical domain knowledge
 
 peft + lora will be used for fine-tuning
-<explain config>
-```
+<!-- <explain config> -->
+```python
 dataset:
   name: medalpaca/medical_meadow_medical_flashcards
 model:
@@ -90,11 +92,11 @@ federeated LLM fine-tuning is the answer.
 
 # Federated LLM Fine-Tuning
 
-<all images>
+<!-- <all images> -->
 
-<img about analysis>
+<!-- <img about analysis> -->
 
-<img communication>
+<!-- <img communication > -->
 
 # Privacy analysis of LLMs using MIA
 
