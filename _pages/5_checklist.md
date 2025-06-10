@@ -12,7 +12,7 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 
 | Updated On | Progress | Total | Percentage |
 | :----: | :-----: | :----: | :----: |
-| November 1, 2024 | 38 | 91 | 41.76% |
+| June 10, 2025 | 40 | 92 | 43.48% |
 
 --------
 
@@ -64,12 +64,12 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 43. | Open a restaurant | ❌ |  |
 | 44. | Have a chocolate fountain at my wedding | ❌ |  |
 | 45. | Be involved in medical research | ❌ |  |
-| 46. | Go to Legoland | ❌ |  |
+| 46. | Go to Legoland | ✅ | A good 27th birthday! |
 | 47. | Go to Universal Studios Theme Park | ✅ |  |
 | 48. | Go to Warner Brothers Theme Park | ✅ |  |
 | 49. | Go to Harry Potter World | ❌ |  |
 | 50. | Visit the Friends set | ❌ |  |
-| 51. | Attend a concert of an artist I follow | ✅ | 3+ |
+| 51. | Attend a concert of an artist I follow | ✅ | 5+ |
 | 52. | Work for Selena Gomez | ❌ |  |
 | 53. | Meet Suzanne Collins | ❌ |  |
 | 54 | Get a PhD in trustworthy AI | ❌ |  |
@@ -108,4 +108,5 @@ I've always had a dynamic checklist of things I want to do in life. However, I w
 | 87. | Go on top of the tallest building - Burj Khalifa  | ✅ | 157th floor 🏙️! |
 | 89. | Boat ride in the longest river in the world - Nile!  | ✅ | |
 | 90. | Experience snowfall | ✅ | My favourite memory is eating fresh snow and building a snowman on a glacier ☃️ |
-| 91. | Have entire meals with chopsticks | ✅ | Not only am I good at handling 🥢 from different countries (korean chopsticks are hard to handle), but now I also have a pretty good sense of SE-Asian cuisine.  |
+| 91. | Have entire meals with chopsticks | ✅ | Korean 🥢 are the hardest to handle |
+| 92. | Eat [Uncle Roger's famous fried rice](https://www.youtube.com/watch?v=SGBP3sG3a9Y)  | ✅ | Fuiyoh! It’s Uncle Roger, Malaysia - it 100% lived up to the hype 🍚  |
