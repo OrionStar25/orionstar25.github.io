@@ -1,4 +1,781 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://orionstar25.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://orionstar25.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2025-06-10T06:39:37+00:00</updated><id>https://orionstar25.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Multi-Agents with CrewAI</title><link href="https://orionstar25.github.io/blog/2025/multi-agents/" rel="alternate" type="text/html" title="Multi-Agents with CrewAI"/><published>2025-05-22T00:00:00+00:00</published><updated>2025-05-22T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2025/multi-agents</id><content type="html" xml:base="https://orionstar25.github.io/blog/2025/multi-agents/"><![CDATA[<h1 id="tradiitonal-swe-vs-ai-swe">Tradiitonal SWE vs AI SWE</h1> <p>| | Traditional | AI | :—-: | :—: | :—: | | Inputs | Defined set and type | Fuzzy inputs with open-ended texts, e.g., table, markdown, text, math | | Transformations | Predefined math operations, variable assignments, loops | Fuzzy transformations, e.g., QA, summarizing, Reasoning, creative writing | | Outputs | Defined set and type | Fuzzy outputs, e.g., paragraph, json, number, markdown | | Replication | Deterministic | Indeterministic |</p> <h1 id="multi-ai-agents">Multi-AI Agents</h1> <p>Have multiple agents such that we breakdown a complex task into simpler/parallel subtasks and allow separate agents to handle them, e.g., 1 agent is solely responsible for reasearching a topic, while another agent writes summaries of these topics.</p> <p>Can also have different agents using different LLMs, e.g, agent 1 using llama 3 and agent 2 using gpt.</p> <h2 id="example-multi-agent-system-content-writer">Example Multi-Agent System: Content Writer</h2> <p>Build a multi-agent crew that researches and writes an article.</p> <ul> <li>Define your Agents and provide them a: <ul> <li>role</li> <li>goal</li> <li>backstory.</li> </ul> </li> <li>It has been seen that LLMs perform better when they are role playing.</li> </ul> <h3 id="agents">Agents</h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">crewai</span> <span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Task</span><span class="p">,</span> <span class="n">Crew</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://orionstar25.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://orionstar25.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2025-08-06T06:07:12+00:00</updated><id>https://orionstar25.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Model Context Protocol (MCP)</title><link href="https://orionstar25.github.io/blog/2025/mcp/" rel="alternate" type="text/html" title="Model Context Protocol (MCP)"/><published>2025-07-01T00:00:00+00:00</published><updated>2025-07-01T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2025/mcp</id><content type="html" xml:base="https://orionstar25.github.io/blog/2025/mcp/"><![CDATA[<h1 id="why-mcp">Why MCP</h1> <p>Models are only as good as the context provided to them. Its an open protocol that standarsgizes how LLM apps connect to and work with tools and data sources.</p> <p>wihtout mcp, ai development would be fragmented. - all apps would have custom implementation - custom prompt logic - custom tool calls - custom data access</p> <p>with mcp. standardize ai development - data store mcp server: query, fetch, modify data, handle data streams - crm mcp server - version control mcp server - etc</p> <p>mcp servers are resuable by various ai applications.</p> <ul> <li>Service providers make their own MCP implementation. make mcp server to wrap us access to service.</li> <li>mcp servers provide tool schemas + functions already defined.</li> </ul> <h1 id="mcp-architecture">MCP Architecture</h1> <p>Based on a client-server arch. - mcp client - mcp protocol - mcp server</p> <p>Host: llm appls that want access to data thorugh mcp server: programs that each expose capabilities through mcp clients: maintain 1-1 connection with server inside host app.</p> <ol> <li>Tools: functions and tools that can be involed by the client. <ul> <li>retrieve/search</li> <li>send a message</li> <li>updare db records</li> </ul> </li> <li>resources: read only data or exposed by the server. can choose to include into the context <ul> <li>files</li> <li>db records</li> <li>api responses</li> </ul> </li> <li>prompt templates: predefined templates for ai interactions such that the overhead of writing efficient prompts for most common tasks is taken away from the developer. (battle-tested evaluated prompts) <ul> <li>document QA</li> <li>transcript summary</li> <li>output as json</li> </ul> </li> </ol> <p>mcp transports - stdio - http + sse - streamable http (stateful &amp; stateless connections) - recommended</p> <h1 id="create-an-mcp-server">create an mcp server</h1> <p>This server needs to handle two main requests from the client:</p> <p>listing all the tools executing a particular tool</p> <p>There are two ways for creating an MCP server:</p> <ul> <li><strong>low-level implementation</strong>: in this approach, you directly define and handle the various types of requests (<code class="language-plaintext highlighter-rouge">ListToolsRequest</code> and <code class="language-plaintext highlighter-rouge">CallToolRequest</code>). This approach allows you to customize every aspect of your server.</li> <li><strong>high-level implementation using <code class="language-plaintext highlighter-rouge">FastMCP</code></strong>: <code class="language-plaintext highlighter-rouge">FastMCP</code> is a high-level interface that makes building MCP servers faster and simpler. In this approach, you just focus on defining the tools as functions, and<code class="language-plaintext highlighter-rouge">FastMCP</code> handles all the protocol details.</li> </ul> <p>To create your MCP server using FastMCP, you will initialize a FastMCP server labeled as mcp and decorating the functions with @mcp.tool(). FastMCP automatically generates the necessary MCP schema based on type hints and docstrings. The magic function %%writefile mcp_project/research_server.py will not execute the code but it will save the content of the cell to the server file research_server.py in the directory: mcp_project.</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">writefile</span> <span class="n">mcp_project</span><span class="o">/</span><span class="n">research_server</span><span class="p">.</span><span class="n">py</span>
+
+<span class="kn">import</span> <span class="n">arxiv</span>
+<span class="kn">import</span> <span class="n">json</span>
+<span class="kn">import</span> <span class="n">os</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="n">mcp.server.fastmcp</span> <span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">PAPER_DIR</span> <span class="o">=</span> <span class="sh">"</span><span class="s">papers</span><span class="sh">"</span>
+
+<span class="c1"># Initialize FastMCP server
+</span><span class="n">mcp</span> <span class="o">=</span> <span class="nc">FastMCP</span><span class="p">(</span><span class="sh">"</span><span class="s">research</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nd">@mcp.tool</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">search_papers</span><span class="p">(</span><span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sh">"""</span><span class="s">
+    Search for papers on arXiv based on a topic and store their information.
+    
+    Args:
+        topic: The topic to search for
+        max_results: Maximum number of results to retrieve (default: 5)
+        
+    Returns:
+        List of paper IDs found in the search
+    </span><span class="sh">"""</span>
+    
+    <span class="c1"># Use arxiv to find the papers 
+</span>    <span class="n">client</span> <span class="o">=</span> <span class="n">arxiv</span><span class="p">.</span><span class="nc">Client</span><span class="p">()</span>
+
+    <span class="c1"># Search for the most relevant articles matching the queried topic
+</span>    <span class="n">search</span> <span class="o">=</span> <span class="n">arxiv</span><span class="p">.</span><span class="nc">Search</span><span class="p">(</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">topic</span><span class="p">,</span>
+        <span class="n">max_results</span> <span class="o">=</span> <span class="n">max_results</span><span class="p">,</span>
+        <span class="n">sort_by</span> <span class="o">=</span> <span class="n">arxiv</span><span class="p">.</span><span class="n">SortCriterion</span><span class="p">.</span><span class="n">Relevance</span>
+    <span class="p">)</span>
+
+    <span class="n">papers</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">results</span><span class="p">(</span><span class="n">search</span><span class="p">)</span>
+    
+    <span class="c1"># Create directory for this topic
+</span>    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">PAPER_DIR</span><span class="p">,</span> <span class="n">topic</span><span class="p">.</span><span class="nf">lower</span><span class="p">().</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">_</span><span class="sh">"</span><span class="p">))</span>
+    <span class="n">os</span><span class="p">.</span><span class="nf">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sh">"</span><span class="s">papers_info.json</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="c1"># Try to load existing papers info
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="n">papers_info</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+    <span class="nf">except </span><span class="p">(</span><span class="nb">FileNotFoundError</span><span class="p">,</span> <span class="n">json</span><span class="p">.</span><span class="n">JSONDecodeError</span><span class="p">):</span>
+        <span class="n">papers_info</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Process each paper and add to papers_info  
+</span>    <span class="n">paper_ids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">:</span>
+        <span class="n">paper_ids</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">paper</span><span class="p">.</span><span class="nf">get_short_id</span><span class="p">())</span>
+        <span class="n">paper_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">title</span><span class="sh">'</span><span class="p">:</span> <span class="n">paper</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">authors</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="n">author</span><span class="p">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">paper</span><span class="p">.</span><span class="n">authors</span><span class="p">],</span>
+            <span class="sh">'</span><span class="s">summary</span><span class="sh">'</span><span class="p">:</span> <span class="n">paper</span><span class="p">.</span><span class="n">summary</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">pdf_url</span><span class="sh">'</span><span class="p">:</span> <span class="n">paper</span><span class="p">.</span><span class="n">pdf_url</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">published</span><span class="sh">'</span><span class="p">:</span> <span class="nf">str</span><span class="p">(</span><span class="n">paper</span><span class="p">.</span><span class="n">published</span><span class="p">.</span><span class="nf">date</span><span class="p">())</span>
+        <span class="p">}</span>
+        <span class="n">papers_info</span><span class="p">[</span><span class="n">paper</span><span class="p">.</span><span class="nf">get_short_id</span><span class="p">()]</span> <span class="o">=</span> <span class="n">paper_info</span>
+    
+    <span class="c1"># Save updated papers_info to json file
+</span>    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+        <span class="n">json</span><span class="p">.</span><span class="nf">dump</span><span class="p">(</span><span class="n">papers_info</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Results are saved in: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">paper_ids</span>
+
+<span class="nd">@mcp.tool</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">paper_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">
+    Search for information about a specific paper across all topic directories.
+    
+    Args:
+        paper_id: The ID of the paper to look for
+        
+    Returns:
+        JSON string with paper information if found, error message if not found
+    </span><span class="sh">"""</span>
+ 
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="nf">listdir</span><span class="p">(</span><span class="n">PAPER_DIR</span><span class="p">):</span>
+        <span class="n">item_path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">PAPER_DIR</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">isdir</span><span class="p">(</span><span class="n">item_path</span><span class="p">):</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">item_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">papers_info.json</span><span class="sh">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+                        <span class="n">papers_info</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">paper_id</span> <span class="ow">in</span> <span class="n">papers_info</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">papers_info</span><span class="p">[</span><span class="n">paper_id</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="nf">except </span><span class="p">(</span><span class="nb">FileNotFoundError</span><span class="p">,</span> <span class="n">json</span><span class="p">.</span><span class="n">JSONDecodeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error reading </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+                    <span class="k">continue</span>
+    
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">There</span><span class="sh">'</span><span class="s">s no saved information related to paper </span><span class="si">{</span><span class="n">paper_id</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span>
+
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="c1"># Initialize and run the server
+</span>    <span class="n">mcp</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="sh">'</span><span class="s">stdio</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div> <ul> <li><a href="https://github.com/modelcontextprotocol/python-sdk/blob/main/examples/servers/simple-tool/mcp_simple_tool/server.py">Example of low-level server</a></li> <li><a href="https://github.com/modelcontextprotocol/python-sdk/blob/main/README.md#advanced-usage">Advanced usage low-level server</a></li> <li><a href="https://github.com/modelcontextprotocol/inspector">MCP inspector</a></li> <li><a href="https://github.com/jlowin/fastmcp">FastMCP</a></li> <li><a href="https://modelcontextprotocol.io/quickstart/server">Quickstart for server developpers</a></li> </ul> <h2 id="terminal-instructions">terminal instructions</h2> <ul> <li>To open the terminal, run the cell below.</li> <li>Navigate to the project directory and initiate it with <code class="language-plaintext highlighter-rouge">uv</code>: <ul> <li><code class="language-plaintext highlighter-rouge">cd L4/mcp_project</code></li> <li><code class="language-plaintext highlighter-rouge">uv init</code></li> </ul> </li> <li>Create virtual environment and activate it: <ul> <li><code class="language-plaintext highlighter-rouge">uv venv</code></li> <li><code class="language-plaintext highlighter-rouge">source .venv/bin/activate</code></li> </ul> </li> <li>Install dependencies: <ul> <li><code class="language-plaintext highlighter-rouge">uv add mcp arxiv</code></li> </ul> </li> <li>Launch the inspector: <ul> <li><code class="language-plaintext highlighter-rouge">npx @modelcontextprotocol/inspector uv run research_server.py</code></li> <li>If you get a message asking “need to install the following packages”, type: <code class="language-plaintext highlighter-rouge">y</code></li> </ul> </li> <li>You will get a message saying that the inspector is up and running at a specific address. To open the inspector, click on that given address. The inspector will open in another tab.</li> <li>In the inspector UI, make sure to follow the video. You would need to specify under configuration the <code class="language-plaintext highlighter-rouge">Inspector Proxy Address</code>. Please check the “Inspector UI Instructions” below and run the last cell (after the terminal) to get the <code class="language-plaintext highlighter-rouge">Inspector Proxy Address</code> for your configurations.</li> <li>If you tested the tool and would like to access the <code class="language-plaintext highlighter-rouge">papers</code> folder: 1) click on the <code class="language-plaintext highlighter-rouge">File</code> option on the top menu of the notebook and 2) click on <code class="language-plaintext highlighter-rouge">Open</code> and then 3) click on <code class="language-plaintext highlighter-rouge">L4</code> -&gt; <code class="language-plaintext highlighter-rouge">mcp_project</code>.</li> <li>Once you’re done with the inspector UI, make sure to close the inspector by typing <code class="language-plaintext highlighter-rouge">Ctrl+C</code> in the terminal below.</li> </ul> <h1 id="mcp-client">mcp client</h1> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">writefile</span> <span class="n">mcp_project</span><span class="o">/</span><span class="n">mcp_chatbot</span><span class="p">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="n">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span> <span class="n">anthropic</span> <span class="kn">import</span> <span class="n">Anthropic</span>
+<span class="kn">from</span> <span class="n">mcp</span> <span class="kn">import</span> <span class="n">ClientSession</span><span class="p">,</span> <span class="n">StdioServerParameters</span><span class="p">,</span> <span class="n">types</span>
+<span class="kn">from</span> <span class="n">mcp.client.stdio</span> <span class="kn">import</span> <span class="n">stdio_client</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="n">asyncio</span>
+<span class="kn">import</span> <span class="n">nest_asyncio</span>
+
+<span class="n">nest_asyncio</span><span class="p">.</span><span class="nf">apply</span><span class="p">()</span>
+
+<span class="nf">load_dotenv</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">MCP_ChatBot</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="c1"># Initialize session and client objects
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">session</span><span class="p">:</span> <span class="n">ClientSession</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">anthropic</span> <span class="o">=</span> <span class="nc">Anthropic</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">available_tools</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">process_query</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="sh">'</span><span class="s">role</span><span class="sh">'</span><span class="p">:</span><span class="sh">'</span><span class="s">user</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">content</span><span class="sh">'</span><span class="p">:</span><span class="n">query</span><span class="p">}]</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">anthropic</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">2024</span><span class="p">,</span>
+                                      <span class="n">model</span> <span class="o">=</span> <span class="sh">'</span><span class="s">claude-3-7-sonnet-20250219</span><span class="sh">'</span><span class="p">,</span> 
+                                      <span class="n">tools</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">available_tools</span><span class="p">,</span> <span class="c1"># tools exposed to the LLM
+</span>                                      <span class="n">messages</span> <span class="o">=</span> <span class="n">messages</span><span class="p">)</span>
+        <span class="n">process_query</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">while</span> <span class="n">process_query</span><span class="p">:</span>
+            <span class="n">assistant_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">content</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+                    <span class="n">assistant_content</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                    <span class="nf">if</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">process_query</span><span class="o">=</span> <span class="bp">False</span>
+                <span class="k">elif</span> <span class="n">content</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">tool_use</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="n">assistant_content</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                    <span class="n">messages</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span><span class="sh">'</span><span class="s">role</span><span class="sh">'</span><span class="p">:</span><span class="sh">'</span><span class="s">assistant</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">content</span><span class="sh">'</span><span class="p">:</span><span class="n">assistant_content</span><span class="p">})</span>
+                    <span class="n">tool_id</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nb">id</span>
+                    <span class="n">tool_args</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nb">input</span>
+                    <span class="n">tool_name</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="n">name</span>
+    
+                    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Calling tool </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s"> with args </span><span class="si">{</span><span class="n">tool_args</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+                    
+                    <span class="c1"># Call a tool
+</span>                    <span class="c1">#result = execute_tool(tool_name, tool_args): not anymore needed
+</span>                    <span class="c1"># tool invocation through the client session
+</span>                    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">self</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="nf">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="n">tool_args</span><span class="p">)</span>
+                    <span class="n">messages</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">,</span> 
+                                      <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+                                          <span class="p">{</span>
+                                              <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">tool_result</span><span class="sh">"</span><span class="p">,</span>
+                                              <span class="sh">"</span><span class="s">tool_use_id</span><span class="sh">"</span><span class="p">:</span><span class="n">tool_id</span><span class="p">,</span>
+                                              <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="n">result</span><span class="p">.</span><span class="n">content</span>
+                                          <span class="p">}</span>
+                                      <span class="p">]</span>
+                                    <span class="p">})</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">anthropic</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">2024</span><span class="p">,</span>
+                                      <span class="n">model</span> <span class="o">=</span> <span class="sh">'</span><span class="s">claude-3-7-sonnet-20250219</span><span class="sh">'</span><span class="p">,</span> 
+                                      <span class="n">tools</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">available_tools</span><span class="p">,</span>
+                                      <span class="n">messages</span> <span class="o">=</span> <span class="n">messages</span><span class="p">)</span> 
+                    
+                    <span class="nf">if</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">):</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+                        <span class="n">process_query</span><span class="o">=</span> <span class="bp">False</span>
+
+    
+    
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">chat_loop</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">Run an interactive chat loop</span><span class="sh">"""</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">MCP Chatbot Started!</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Type your queries or </span><span class="sh">'</span><span class="s">quit</span><span class="sh">'</span><span class="s"> to exit.</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">Query: </span><span class="sh">"</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span>
+        
+                <span class="k">if</span> <span class="n">query</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span> <span class="o">==</span> <span class="sh">'</span><span class="s">quit</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="k">break</span>
+                    
+                <span class="k">await</span> <span class="n">self</span><span class="p">.</span><span class="nf">process_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+                    
+            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Error: </span><span class="si">{</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">connect_to_server_and_run</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="c1"># Create server parameters for stdio connection
+</span>        <span class="n">server_params</span> <span class="o">=</span> <span class="nc">StdioServerParameters</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="sh">"</span><span class="s">uv</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># Executable
+</span>            <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="s">run</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">research_server.py</span><span class="sh">"</span><span class="p">],</span>  <span class="c1"># Optional command line arguments
+</span>            <span class="n">env</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>  <span class="c1"># Optional environment variables
+</span>        <span class="p">)</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="nf">stdio_client</span><span class="p">(</span><span class="n">server_params</span><span class="p">)</span> <span class="nf">as </span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">):</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="nc">ClientSession</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+                <span class="c1"># Initialize the connection
+</span>                <span class="k">await</span> <span class="n">session</span><span class="p">.</span><span class="nf">initialize</span><span class="p">()</span>
+    
+                <span class="c1"># List available tools
+</span>                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="p">.</span><span class="nf">list_tools</span><span class="p">()</span>
+                
+                <span class="n">tools</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">tools</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">Connected to server with tools:</span><span class="sh">"</span><span class="p">,</span> <span class="p">[</span><span class="n">tool</span><span class="p">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">])</span>
+                
+                <span class="n">self</span><span class="p">.</span><span class="n">available_tools</span> <span class="o">=</span> <span class="p">[{</span>
+                    <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="n">tool</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="n">tool</span><span class="p">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">input_schema</span><span class="sh">"</span><span class="p">:</span> <span class="n">tool</span><span class="p">.</span><span class="n">inputSchema</span>
+                <span class="p">}</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">response</span><span class="p">.</span><span class="n">tools</span><span class="p">]</span>
+    
+                <span class="k">await</span> <span class="n">self</span><span class="p">.</span><span class="nf">chat_loop</span><span class="p">()</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">chatbot</span> <span class="o">=</span> <span class="nc">MCP_ChatBot</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">chatbot</span><span class="p">.</span><span class="nf">connect_to_server_and_run</span><span class="p">()</span>
+  
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="nf">main</span><span class="p">())</span>
+</code></pre></div></div> <h1 id="add-prompts-and-resource-features">add prompts and resource features</h1>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="federated-learning"/><category term="openmined"/><category term="challenge"/><category term="data-privacy"/><category term="trustworthy-ai"/><summary type="html"><![CDATA[Why MCP]]></summary></entry><entry><title type="html">AI Agentic Design Patterns with AutoGen</title><link href="https://orionstar25.github.io/blog/2025/autogen/" rel="alternate" type="text/html" title="AI Agentic Design Patterns with AutoGen"/><published>2025-06-10T00:00:00+00:00</published><updated>2025-06-10T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2025/autogen</id><content type="html" xml:base="https://orionstar25.github.io/blog/2025/autogen/"><![CDATA[<h1 id="autogen">AutoGen</h1> <h2 id="multi-agent-conversation">Multi-Agent Conversation</h2> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">utils</span> <span class="kn">import</span> <span class="n">get_openai_api_key</span>
+<span class="n">OPENAI_API_KEY</span> <span class="o">=</span> <span class="nf">get_openai_api_key</span><span class="p">()</span>
+<span class="n">llm_config</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">model</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">gpt-3.5-turbo</span><span class="sh">"</span><span class="p">}</span>
+
+<span class="kn">from</span> <span class="n">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">chatbot</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">reply</span> <span class="o">=</span> <span class="n">agent</span><span class="p">.</span><span class="nf">generate_reply</span><span class="p">(</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Tell me a joke.</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">}]</span>
+<span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+<span class="c1"># Sure! Here you go:
+</span>
+<span class="c1"># Why don't scientists trust atoms?
+</span>
+<span class="c1"># Because they make up everything!
+</span></code></pre></div></div> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cathy</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">cathy</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span>
+    <span class="sh">"</span><span class="s">Your name is Cathy and you are a stand-up comedian.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">joe</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">joe</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span>
+    <span class="sh">"</span><span class="s">Your name is Joe and you are a stand-up comedian. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Start the next joke from the punchline of the previous joke.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">chat_result</span> <span class="o">=</span> <span class="n">joe</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">recipient</span><span class="o">=</span><span class="n">cathy</span><span class="p">,</span> 
+    <span class="n">message</span><span class="o">=</span><span class="sh">"</span><span class="s">I</span><span class="sh">'</span><span class="s">m Joe. Cathy, let</span><span class="sh">'</span><span class="s">s keep the jokes rolling.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">max_turns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># joe (to cathy):
+</span>
+<span class="c1"># I'm Joe. Cathy, let's keep the jokes rolling.
+</span>
+<span class="c1"># --------------------------------------------------------------------------------
+# cathy (to joe):
+</span>
+<span class="c1"># Alright, Joe, let's get this comedy train rolling! So, why did the scarecrow win an award? Because he was outstanding in his field!
+</span>
+<span class="c1"># --------------------------------------------------------------------------------
+# joe (to cathy):
+</span>
+<span class="c1"># Haha, that scarecrow sure knows how to stand out! So, I recently tried to make a belt out of watches, but it was a waist of time.
+</span>
+<span class="c1"># --------------------------------------------------------------------------------
+# cathy (to joe):
+</span>
+<span class="c1"># Haha, Joe, that joke was right on schedule! But hey, if you're going to make a belt out of watches, at least you'll always be on time, right? Keep the puns coming, my friend!
+</span>
+<span class="c1"># --------------------------------------------------------------------------------
+</span></code></pre></div></div> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">pprint</span><span class="p">.</span><span class="nf">pprint</span><span class="p">(</span><span class="n">chat_result</span><span class="p">.</span><span class="n">chat_history</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">.</span><span class="nf">pprint</span><span class="p">(</span><span class="n">chat_result</span><span class="p">.</span><span class="n">cost</span><span class="p">)</span>
+
+<span class="c1"># {'usage_excluding_cached_inference': {'gpt-3.5-turbo-0125': {'completion_tokens': 112,
+#                                                              'cost': 0.0002825,
+#                                                              'prompt_tokens': 229,
+#                                                              'total_tokens': 341},
+#                                       'total_cost': 0.0002825},
+#  'usage_including_cached_inference': {'gpt-3.5-turbo-0125': {'completion_tokens': 112,
+#                                                              'cost': 0.0002825,
+#                                                              'prompt_tokens': 229,
+#                                                              'total_tokens': 341},
+#                                       'total_cost': 0.0002825}}
+</span></code></pre></div></div> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chat_result</span> <span class="o">=</span> <span class="n">joe</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">cathy</span><span class="p">,</span> 
+    <span class="n">message</span><span class="o">=</span><span class="sh">"</span><span class="s">I</span><span class="sh">'</span><span class="s">m Joe. Cathy, let</span><span class="sh">'</span><span class="s">s keep the jokes rolling.</span><span class="sh">"</span><span class="p">,</span> 
+    <span class="n">max_turns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+    <span class="n">summary_method</span><span class="o">=</span><span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">summary_prompt</span><span class="o">=</span><span class="sh">"</span><span class="s">Summarize the conversation</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">.</span><span class="nf">pprint</span><span class="p">(</span><span class="n">chat_result</span><span class="p">.</span><span class="n">summary</span><span class="p">)</span>
+
+<span class="c1"># ('Joe and Cathy are sharing jokes and puns with each other, keeping the comedy '
+#  'train rolling. They joke about a scarecrow winning an award for being '
+#  'outstanding in his field and making a belt out of watches being a "waist" of '
+#  'time. They enjoy the humor and encourage each other to keep the jokes '
+#  'coming.')
+</span></code></pre></div></div> <p>Termination</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cathy</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">cathy</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span>
+    <span class="sh">"</span><span class="s">Your name is Cathy and you are a stand-up comedian. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">When you</span><span class="sh">'</span><span class="s">re ready to end the conversation, say </span><span class="sh">'</span><span class="s">I gotta go</span><span class="sh">'</span><span class="s">.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="sh">"</span><span class="s">I gotta go</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">joe</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">joe</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span>
+    <span class="sh">"</span><span class="s">Your name is Joe and you are a stand-up comedian. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">When you</span><span class="sh">'</span><span class="s">re ready to end the conversation, say </span><span class="sh">'</span><span class="s">I gotta go</span><span class="sh">'</span><span class="s">.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="sh">"</span><span class="s">I gotta go</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">]</span> <span class="ow">or</span> <span class="sh">"</span><span class="s">Goodbye</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">chat_result</span> <span class="o">=</span> <span class="n">joe</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">recipient</span><span class="o">=</span><span class="n">cathy</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="sh">"</span><span class="s">I</span><span class="sh">'</span><span class="s">m Joe. Cathy, let</span><span class="sh">'</span><span class="s">s keep the jokes rolling.</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>joe (to cathy):</p> <p>I’m Joe. Cathy, let’s keep the jokes rolling.</p> <hr/> <p>cathy (to joe):</p> <p>Hey Joe! Why did the scarecrow win an award? Because he was outstanding in his field!</p> <hr/> <p>joe (to cathy):</p> <p>Haha, that’s a classic one, Cathy! You really know how to plant a good joke.</p> <hr/> <p>cathy (to joe):</p> <p>Thanks, Joe! Glad you’re enjoying the jokes. Did you hear about the mathematician who’s afraid of negative numbers? He’ll stop at nothing to avoid them!</p> <hr/> <p>joe (to cathy):</p> <p>Haha, that’s a great one, Cathy! It’s like he’s always trying to stay positive!</p> <hr/> <p>cathy (to joe):</p> <p>Exactly, Joe! Always looking on the bright side, even when dealing with negative numbers. Got any jokes of your own to share?</p> <hr/> <p>joe (to cathy):</p> <p>Oh, I’ve got plenty up my sleeve, Cathy. How about this one: Why did the golfer bring two pairs of pants? In case he got a hole in one!</p> <hr/> <p>cathy (to joe):</p> <p>Haha, that’s a hole-in-one joke, Joe! I bet that golfer was prepared for any situation on the course. Thanks for sharing!</p> <hr/> <p>joe (to cathy):</p> <p>You got it, Cathy! Always good to be prepared, especially when it comes to jokes. Thanks for the laughs! I gotta go.</p> <hr/> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cathy</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sh">"</span><span class="s">What</span><span class="sh">'</span><span class="s">s last joke we talked about?</span><span class="sh">"</span><span class="p">,</span> <span class="n">recipient</span><span class="o">=</span><span class="n">joe</span><span class="p">)</span>
+
+<span class="nf">cathy </span><span class="p">(</span><span class="n">to</span> <span class="n">joe</span><span class="p">):</span>
+
+<span class="n">What</span><span class="sh">'</span><span class="s">s last joke we talked about?
+
+--------------------------------------------------------------------------------
+joe (to cathy):
+
+The last joke we talked about was about the golfer bringing two pairs of pants in case he got a hole in one.
+
+--------------------------------------------------------------------------------
+cathy (to joe):
+
+Thank you! It was great chatting with you, Joe! Keep spreading the laughter with your jokes. Have a fantastic day!
+
+--------------------------------------------------------------------------------
+joe (to cathy):
+
+Thank you, Cathy! It was great chatting with you too. Keep smiling and laughing! Have a wonderful day! I gotta go.
+
+--------------------------------------------------------------------------------
+</span></code></pre></div></div> <h2 id="sequential-chats">Sequential Chats</h2> <p>create agents</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">onboarding_personal_information_agent</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Onboarding Personal Information Agent</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">'''</span><span class="s">You are a helpful customer onboarding agent,
+    you are here to help new customers get started with our product.
+    Your job is to gather customer</span><span class="sh">'</span><span class="s">s name and location.
+    Do not ask for other information. Return </span><span class="sh">'</span><span class="s">TERMINATE</span><span class="sh">'</span><span class="s"> 
+    when you have gathered all the information.</span><span class="sh">'''</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">onboarding_topic_preference_agent</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Onboarding Topic preference Agent</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">'''</span><span class="s">You are a helpful customer onboarding agent,
+    you are here to help new customers get started with our product.
+    Your job is to gather customer</span><span class="sh">'</span><span class="s">s preferences on news topics.
+    Do not ask for other information.
+    Return </span><span class="sh">'</span><span class="s">TERMINATE</span><span class="sh">'</span><span class="s"> when you have gathered all the information.</span><span class="sh">'''</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">customer_engagement_agent</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Customer Engagement Agent</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">'''</span><span class="s">You are a helpful customer service agent
+    here to provide fun for the customer based on the user</span><span class="sh">'</span><span class="s">s
+    personal information and topic preferences.
+    This could include fun facts, jokes, or interesting stories.
+    Make sure to make it engaging and fun!
+    Return </span><span class="sh">'</span><span class="s">TERMINATE</span><span class="sh">'</span><span class="s"> when you are done.</span><span class="sh">'''</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="sh">"</span><span class="s">terminate</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">).</span><span class="nf">lower</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="n">customer_proxy_agent</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">customer_proxy_agent</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">ALWAYS</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="sh">"</span><span class="s">terminate</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">).</span><span class="nf">lower</span><span class="p">(),</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>create tasks</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chats</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">sender</span><span class="sh">"</span><span class="p">:</span> <span class="n">onboarding_personal_information_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">customer_proxy_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> 
+            <span class="sh">"</span><span class="s">Hello, I</span><span class="sh">'</span><span class="s">m here to help you get started with our product.</span><span class="sh">"</span>
+            <span class="sh">"</span><span class="s">Could you tell me your name and location?</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">summary_args</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">summary_prompt</span><span class="sh">"</span> <span class="p">:</span> <span class="sh">"</span><span class="s">Return the customer information </span><span class="sh">"</span>
+                             <span class="sh">"</span><span class="s">into as JSON object only: </span><span class="sh">"</span>
+                             <span class="sh">"</span><span class="s">{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">, </span><span class="sh">'</span><span class="s">location</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">}</span><span class="sh">"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">clear_history</span><span class="sh">"</span> <span class="p">:</span> <span class="bp">True</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">sender</span><span class="sh">"</span><span class="p">:</span> <span class="n">onboarding_topic_preference_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">customer_proxy_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> 
+                <span class="sh">"</span><span class="s">Great! Could you tell me what topics you are </span><span class="sh">"</span>
+                <span class="sh">"</span><span class="s">interested in reading about?</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">clear_history</span><span class="sh">"</span> <span class="p">:</span> <span class="bp">False</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">sender</span><span class="sh">"</span><span class="p">:</span> <span class="n">customer_proxy_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">customer_engagement_agent</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Let</span><span class="sh">'</span><span class="s">s find something fun to read.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="kn">from</span> <span class="n">autogen</span> <span class="kn">import</span> <span class="n">initiate_chats</span>
+
+<span class="n">chat_results</span> <span class="o">=</span> <span class="nf">initiate_chats</span><span class="p">(</span><span class="n">chats</span><span class="p">)</span>
+</code></pre></div></div> <p>cost</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">chat_result</span> <span class="ow">in</span> <span class="n">chat_results</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">chat_result</span><span class="p">.</span><span class="n">summary</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div> <h2 id="reflection">Reflection</h2> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
+        Write a concise but engaging blogpost about
+       DeepLearning.AI. Make sure the blogpost is
+       within 100 words.
+       </span><span class="sh">'''</span>
+
+<span class="kn">import</span> <span class="n">autogen</span>
+
+<span class="n">writer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Writer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a writer. You write engaging and concise </span><span class="sh">"</span> 
+        <span class="sh">"</span><span class="s">blogpost (with title) on given topics. You must polish your </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">writing based on the feedback you receive and give a refined </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">version. Only return your final work without additional comments.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">critic</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Critic</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">find</span><span class="p">(</span><span class="sh">"</span><span class="s">TERMINATE</span><span class="sh">"</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a critic. You review the work of </span><span class="sh">"</span>
+                <span class="sh">"</span><span class="s">the writer and provide constructive </span><span class="sh">"</span>
+                <span class="sh">"</span><span class="s">feedback to help improve the quality of the content.</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">SEO_reviewer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">SEO Reviewer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are an SEO reviewer, known for </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">your ability to optimize content for search engines, </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">ensuring that it ranks well and attracts organic traffic. </span><span class="sh">"</span> 
+        <span class="sh">"</span><span class="s">Make sure your suggestion is concise (within 3 bullet points), </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">concrete and to the point. </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">Begin the review by stating your role.</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">legal_reviewer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Legal Reviewer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a legal reviewer, known for </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">your ability to ensure that content is legally compliant </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">and free from any potential legal issues. </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">Make sure your suggestion is concise (within 3 bullet points), </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">concrete and to the point. </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">Begin the review by stating your role.</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ethics_reviewer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Ethics Reviewer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are an ethics reviewer, known for </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">your ability to ensure that content is ethically sound </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">and free from any potential ethical issues. </span><span class="sh">"</span> 
+        <span class="sh">"</span><span class="s">Make sure your suggestion is concise (within 3 bullet points), </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">concrete and to the point. </span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">Begin the review by stating your role. </span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">meta_reviewer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Meta Reviewer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a meta reviewer, you aggregate and review </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">the work of other reviewers and give a final suggestion on the content.</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>tasks</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reflection_message</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">'''</span><span class="s">Review the following content. 
+            </span><span class="se">\n\n</span><span class="s"> </span><span class="si">{</span><span class="n">recipient</span><span class="p">.</span><span class="nf">chat_messages_for_summary</span><span class="p">(</span><span class="n">sender</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="sh">'</span><span class="s">content</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">'''</span>
+
+<span class="n">review_chats</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">ethics_reviewer</span><span class="p">,</span> <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> <span class="n">reflection_message</span><span class="p">,</span> 
+     <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+     <span class="sh">"</span><span class="s">summary_args</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">summary_prompt</span><span class="sh">"</span> <span class="p">:</span> 
+        <span class="sh">"</span><span class="s">Return review into as JSON object only:</span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">{</span><span class="sh">'</span><span class="s">reviewer</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">, </span><span class="sh">'</span><span class="s">review</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">}</span><span class="sh">"</span><span class="p">,},</span>
+     <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span>
+    <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">legal_reviewer</span><span class="p">,</span> <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> <span class="n">reflection_message</span><span class="p">,</span> 
+     <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+     <span class="sh">"</span><span class="s">summary_args</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">summary_prompt</span><span class="sh">"</span> <span class="p">:</span> 
+        <span class="sh">"</span><span class="s">Return review into as JSON object only:</span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">{</span><span class="sh">'</span><span class="s">Reviewer</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">, </span><span class="sh">'</span><span class="s">Review</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">}.</span><span class="sh">"</span><span class="p">,},</span>
+     <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span>
+     <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">SEO_reviewer</span><span class="p">,</span> 
+     <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> <span class="n">reflection_message</span><span class="p">,</span> 
+     <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">reflection_with_llm</span><span class="sh">"</span><span class="p">,</span>
+     <span class="sh">"</span><span class="s">summary_args</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">summary_prompt</span><span class="sh">"</span> <span class="p">:</span> 
+        <span class="sh">"</span><span class="s">Return review into as JSON object only:</span><span class="sh">"</span>
+        <span class="sh">"</span><span class="s">{</span><span class="sh">'</span><span class="s">Reviewer</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">, </span><span class="sh">'</span><span class="s">Review</span><span class="sh">'</span><span class="s">: </span><span class="sh">''</span><span class="s">}. Here Reviewer should be your role</span><span class="sh">"</span><span class="p">,},</span>
+     <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+     <span class="p">{</span><span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">meta_reviewer</span><span class="p">,</span> 
+      <span class="sh">"</span><span class="s">message</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Aggregrate feedback from all reviewers and give final suggestions on the writing.</span><span class="sh">"</span><span class="p">,</span> 
+     <span class="sh">"</span><span class="s">max_turns</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<span class="p">]</span>
+
+
+<span class="n">critic</span><span class="p">.</span><span class="nf">register_nested_chats</span><span class="p">(</span>
+    <span class="n">review_chats</span><span class="p">,</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="n">writer</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>execute</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span> <span class="o">=</span> <span class="n">critic</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">recipient</span><span class="o">=</span><span class="n">writer</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
+    <span class="n">max_turns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">summary_method</span><span class="o">=</span><span class="sh">"</span><span class="s">last_msg</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div> <details> <summary>Trace</summary> Critic (to Writer): Write a concise but engaging blogpost about DeepLearning.AI. Make sure the blogpost is within 100 words. -------------------------------------------------------------------------------- Writer (to Critic): Title: Unveiling the Power of DeepLearning.AI Step into the world of cutting-edge technology with DeepLearning.AI, a platform revolutionizing the field of artificial intelligence. Boasting top-tier courses, DeepLearning.AI equips enthusiasts with the skills to thrive in this dynamic industry. From neural networks to computer vision, the platform offers a comprehensive understanding of deep learning concepts. Whether you're a novice or an expert, there's something for everyone to explore and learn. Join the ranks of AI innovators today with DeepLearning.AI and unravel the endless possibilities that lie ahead in this exciting domain. -------------------------------------------------------------------------------- ******************************************************************************** Starting a new chat.... ******************************************************************************** Critic (to Ethics Reviewer): Review the following content. Title: Unveiling the Power of DeepLearning.AI Step into the world of cutting-edge technology with DeepLearning.AI, a platform revolutionizing the field of artificial intelligence. Boasting top-tier courses, DeepLearning.AI equips enthusiasts with the skills to thrive in this dynamic industry. From neural networks to computer vision, the platform offers a comprehensive understanding of deep learning concepts. Whether you're a novice or an expert, there's something for everyone to explore and learn. Join the ranks of AI innovators today with DeepLearning.AI and unravel the endless possibilities that lie ahead in this exciting domain. -------------------------------------------------------------------------------- Ethics Reviewer (to Critic): As an ethics reviewer, I would like to provide the following feedback on the content: - Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes. - Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform. - Verify that any claims made about the platform's impact on an individual's career or success in the field are supported by evidence and do not mislead potential users. -------------------------------------------------------------------------------- ******************************************************************************** Starting a new chat.... ******************************************************************************** Critic (to Legal Reviewer): Review the following content. Title: Unveiling the Power of DeepLearning.AI Step into the world of cutting-edge technology with DeepLearning.AI, a platform revolutionizing the field of artificial intelligence. Boasting top-tier courses, DeepLearning.AI equips enthusiasts with the skills to thrive in this dynamic industry. From neural networks to computer vision, the platform offers a comprehensive understanding of deep learning concepts. Whether you're a novice or an expert, there's something for everyone to explore and learn. Join the ranks of AI innovators today with DeepLearning.AI and unravel the endless possibilities that lie ahead in this exciting domain. Context: {'reviewer': 'ethics reviewer', 'review': '- Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes.\n- Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform.\n- Verify that any claims made about the platform\'s impact on an individual\'s career or success in the field are supported by evidence and do not mislead potential users.'} -------------------------------------------------------------------------------- Legal Reviewer (to Critic): As a legal reviewer, I recommend the following adjustments to the content: - Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes. - Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform. - Verify that any claims made about the platform's impact on an individual's career or success in the field are supported by evidence and do not mislead potential users. -------------------------------------------------------------------------------- ******************************************************************************** Starting a new chat.... ******************************************************************************** Critic (to SEO Reviewer): Review the following content. Title: Unveiling the Power of DeepLearning.AI Step into the world of cutting-edge technology with DeepLearning.AI, a platform revolutionizing the field of artificial intelligence. Boasting top-tier courses, DeepLearning.AI equips enthusiasts with the skills to thrive in this dynamic industry. From neural networks to computer vision, the platform offers a comprehensive understanding of deep learning concepts. Whether you're a novice or an expert, there's something for everyone to explore and learn. Join the ranks of AI innovators today with DeepLearning.AI and unravel the endless possibilities that lie ahead in this exciting domain. Context: {'reviewer': 'ethics reviewer', 'review': '- Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes.\n- Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform.\n- Verify that any claims made about the platform\'s impact on an individual\'s career or success in the field are supported by evidence and do not mislead potential users.'} {'Reviewer': 'legal reviewer', 'Review': '- Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes.\n- Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform.\n- Verify that any claims made about the platform\'s impact on an individual\'s career or success in the field are supported by evidence and do not mislead potential users.'} -------------------------------------------------------------------------------- SEO Reviewer (to Critic): As an SEO reviewer: - Include relevant keywords like "DeepLearning.AI," "artificial intelligence," "neural networks," and "computer vision" to boost search engine visibility. - Consider adding a meta title and description that clearly highlight the platform's features and benefits for better click-through rates. - Link to authoritative sources or testimonials to enhance credibility and trustworthiness, potentially improving the content's ranking. -------------------------------------------------------------------------------- ******************************************************************************** Starting a new chat.... ******************************************************************************** Critic (to Meta Reviewer): Aggregrate feedback from all reviewers and give final suggestions on the writing. Context: {'reviewer': 'ethics reviewer', 'review': '- Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes.\n- Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform.\n- Verify that any claims made about the platform\'s impact on an individual\'s career or success in the field are supported by evidence and do not mislead potential users.'} {'Reviewer': 'legal reviewer', 'Review': '- Ensure that the benefits and capabilities of DeepLearning.AI are accurately portrayed without exaggeration or overpromising outcomes.\n- Avoid using language that may create unrealistic expectations for individuals interested in pursuing courses on the platform.\n- Verify that any claims made about the platform\'s impact on an individual\'s career or success in the field are supported by evidence and do not mislead potential users.'} {'Reviewer': 'SEO reviewer', 'Review': '- Include relevant keywords like "DeepLearning.AI," "artificial intelligence," "neural networks," and "computer vision" to boost search engine visibility.\n- Consider adding a meta title and description that clearly highlight the platform\'s features and benefits for better click-through rates.\n- Link to authoritative sources or testimonials to enhance credibility and trustworthiness, potentially improving the content\'s ranking.'} -------------------------------------------------------------------------------- Meta Reviewer (to Critic): After aggregating feedback from all reviewers, it is clear that there is a consistent emphasis on accurately portraying the benefits and capabilities of DeepLearning.AI without exaggeration or creating unrealistic expectations. It is essential to ensure that any claims about the platform's impact on an individual's career or success are supported by evidence to avoid misleading potential users. Furthermore, the SEO reviewer suggests incorporating relevant keywords and using a meta title and description to enhance search engine visibility and click-through rates. Including links to authoritative sources or testimonials can also boost credibility and trustworthiness. Based on the feedback provided, here are some final suggestions for the writing: 1. **Accuracy and Realism**: Double-check the content to ensure that the benefits and capabilities of DeepLearning.AI are presented accurately without overpromising outcomes or creating unrealistic expectations. 2. **Evidence-Based Claims**: Make sure that any claims made about the platform's impact on an individual's career or success are backed by evidence to avoid misleading potential users. 3. **SEO Optimization**: Incorporate relevant keywords like "DeepLearning.AI," "artificial intelligence," "neural networks," and "computer vision" strategically throughout the content for better search engine visibility. 4. **Meta Title and Description**: Consider adding a well-crafted meta title and description that succinctly highlight the platform's features and benefits to improve click-through rates. 5. **Credibility Enhancement**: Include links to authoritative sources or testimonials within the content to enhance credibility and trustworthiness, potentially improving the content's ranking. By implementing these suggestions, the writing can effectively convey the value of DeepLearning.AI while ensuring transparency, credibility, and SEO optimization. -------------------------------------------------------------------------------- Critic (to Writer): After aggregating feedback from all reviewers, it is clear that there is a consistent emphasis on accurately portraying the benefits and capabilities of DeepLearning.AI without exaggeration or creating unrealistic expectations. It is essential to ensure that any claims about the platform's impact on an individual's career or success are supported by evidence to avoid misleading potential users. Furthermore, the SEO reviewer suggests incorporating relevant keywords and using a meta title and description to enhance search engine visibility and click-through rates. Including links to authoritative sources or testimonials can also boost credibility and trustworthiness. Based on the feedback provided, here are some final suggestions for the writing: 1. **Accuracy and Realism**: Double-check the content to ensure that the benefits and capabilities of DeepLearning.AI are presented accurately without overpromising outcomes or creating unrealistic expectations. 2. **Evidence-Based Claims**: Make sure that any claims made about the platform's impact on an individual's career or success are backed by evidence to avoid misleading potential users. 3. **SEO Optimization**: Incorporate relevant keywords like "DeepLearning.AI," "artificial intelligence," "neural networks," and "computer vision" strategically throughout the content for better search engine visibility. 4. **Meta Title and Description**: Consider adding a well-crafted meta title and description that succinctly highlight the platform's features and benefits to improve click-through rates. 5. **Credibility Enhancement**: Include links to authoritative sources or testimonials within the content to enhance credibility and trustworthiness, potentially improving the content's ranking. By implementing these suggestions, the writing can effectively convey the value of DeepLearning.AI while ensuring transparency, credibility, and SEO optimization. -------------------------------------------------------------------------------- Writer (to Critic): Title: Unveiling the Impact of DeepLearning.AI on Your AI Journey Embark on a transformative AI journey with DeepLearning.AI, a pioneering platform shaping the future of artificial intelligence. Offering a rich array of courses, from neural networks to computer vision, DeepLearning.AI empowers learners at every level with essential skills. By focusing on realistic outcomes and supported by evidence, the platform equips you to thrive in the dynamic AI landscape. Enhance search visibility by strategically incorporating keywords like "DeepLearning.AI" and "artificial intelligence." Elevate credibility with links to testimonials and authoritative sources. Join DeepLearning.AI today to unlock your potential in the realm of AI. -------------------------------------------------------------------------------- </details> <h2 id="tool-use">Tool use</h2> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">llm_config</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">model</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">gpt-4-turbo</span><span class="sh">"</span><span class="p">}</span>
+
+<span class="kn">import</span> <span class="n">chess</span>
+<span class="kn">import</span> <span class="n">chess.svg</span>
+<span class="kn">from</span> <span class="n">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="p">.</span><span class="nc">Board</span><span class="p">()</span>
+<span class="n">made_move</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div></div> <p>tools</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_legal_moves</span><span class="p">(</span>
+    
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="sh">"</span><span class="s">A list of legal moves in UCI format</span><span class="sh">"</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="sh">"</span><span class="s">Possible moves are: </span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">,</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span>
+        <span class="p">[</span><span class="nf">str</span><span class="p">(</span><span class="n">move</span><span class="p">)</span> <span class="k">for</span> <span class="n">move</span> <span class="ow">in</span> <span class="n">board</span><span class="p">.</span><span class="n">legal_moves</span><span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">make_move</span><span class="p">(</span>
+    <span class="n">move</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="sh">"</span><span class="s">A move in UCI format.</span><span class="sh">"</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="sh">"</span><span class="s">Result of the move.</span><span class="sh">"</span><span class="p">]:</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="n">chess</span><span class="p">.</span><span class="n">Move</span><span class="p">.</span><span class="nf">from_uci</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+    <span class="n">board</span><span class="p">.</span><span class="nf">push_uci</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">move</span><span class="p">))</span>
+    <span class="k">global</span> <span class="n">made_move</span>
+    <span class="n">made_move</span> <span class="o">=</span> <span class="bp">True</span>
+    
+    <span class="c1"># Display the board.
+</span>    <span class="nf">display</span><span class="p">(</span>
+        <span class="n">chess</span><span class="p">.</span><span class="n">svg</span><span class="p">.</span><span class="nf">board</span><span class="p">(</span>
+            <span class="n">board</span><span class="p">,</span>
+            <span class="n">arrows</span><span class="o">=</span><span class="p">[(</span><span class="n">move</span><span class="p">.</span><span class="n">from_square</span><span class="p">,</span> <span class="n">move</span><span class="p">.</span><span class="n">to_square</span><span class="p">)],</span>
+            <span class="n">fill</span><span class="o">=</span><span class="p">{</span><span class="n">move</span><span class="p">.</span><span class="n">from_square</span><span class="p">:</span> <span class="sh">"</span><span class="s">gray</span><span class="sh">"</span><span class="p">},</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">200</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Get the piece name.
+</span>    <span class="n">piece</span> <span class="o">=</span> <span class="n">board</span><span class="p">.</span><span class="nf">piece_at</span><span class="p">(</span><span class="n">move</span><span class="p">.</span><span class="n">to_square</span><span class="p">)</span>
+    <span class="n">piece_symbol</span> <span class="o">=</span> <span class="n">piece</span><span class="p">.</span><span class="nf">unicode_symbol</span><span class="p">()</span>
+    <span class="n">piece_name</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">chess</span><span class="p">.</span><span class="nf">piece_name</span><span class="p">(</span><span class="n">piece</span><span class="p">.</span><span class="n">piece_type</span><span class="p">).</span><span class="nf">capitalize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">piece_symbol</span><span class="p">.</span><span class="nf">isupper</span><span class="p">()</span>
+        <span class="k">else</span> <span class="n">chess</span><span class="p">.</span><span class="nf">piece_name</span><span class="p">(</span><span class="n">piece</span><span class="p">.</span><span class="n">piece_type</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Moved </span><span class="si">{</span><span class="n">piece_name</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">piece_symbol</span><span class="si">}</span><span class="s">) from </span><span class="sh">"</span>\
+    <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">chess</span><span class="p">.</span><span class="n">SQUARE_NAMES</span><span class="p">[</span><span class="n">move</span><span class="p">.</span><span class="n">from_square</span><span class="p">]</span><span class="si">}</span><span class="s"> to </span><span class="sh">"</span>\
+    <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">chess</span><span class="p">.</span><span class="n">SQUARE_NAMES</span><span class="p">[</span><span class="n">move</span><span class="p">.</span><span class="n">to_square</span><span class="p">]</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span>
+</code></pre></div></div> <p>agents</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+
+<span class="c1"># Player white agent
+</span><span class="n">player_white</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Player White</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a chess player and you play as white. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">First call get_legal_moves(), to get a list of legal moves. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Then call make_move(move) to make a move.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Player black agent
+</span><span class="n">player_black</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Player Black</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a chess player and you play as black. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">First call get_legal_moves(), to get a list of legal moves. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Then call make_move(move) to make a move.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_made_move</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">made_move</span>
+    <span class="k">if</span> <span class="n">made_move</span><span class="p">:</span>
+        <span class="n">made_move</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+
+<span class="n">board_proxy</span> <span class="o">=</span> <span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Board Proxy</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">is_termination_msg</span><span class="o">=</span><span class="n">check_made_move</span><span class="p">,</span>
+    <span class="n">default_auto_reply</span><span class="o">=</span><span class="sh">"</span><span class="s">Please make a move.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>register tools</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">autogen</span> <span class="kn">import</span> <span class="n">register_function</span>
+
+<span class="k">for</span> <span class="n">caller</span> <span class="ow">in</span> <span class="p">[</span><span class="n">player_white</span><span class="p">,</span> <span class="n">player_black</span><span class="p">]:</span>
+    <span class="nf">register_function</span><span class="p">(</span>
+        <span class="n">get_legal_moves</span><span class="p">,</span>
+        <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">,</span>
+        <span class="n">executor</span><span class="o">=</span><span class="n">board_proxy</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">get_legal_moves</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">Get legal moves.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="p">)</span>
+    
+    <span class="nf">register_function</span><span class="p">(</span>
+        <span class="n">make_move</span><span class="p">,</span>
+        <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">,</span>
+        <span class="n">executor</span><span class="o">=</span><span class="n">board_proxy</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">make_move</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">Call this tool to make a move.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></div> <p>register nested chats</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">player_white</span><span class="p">.</span><span class="nf">register_nested_chats</span><span class="p">(</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="n">player_black</span><span class="p">,</span>
+    <span class="n">chat_queue</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">sender</span><span class="sh">"</span><span class="p">:</span> <span class="n">board_proxy</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">player_white</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">last_msg</span><span class="sh">"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">player_black</span><span class="p">.</span><span class="nf">register_nested_chats</span><span class="p">(</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="n">player_white</span><span class="p">,</span>
+    <span class="n">chat_queue</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">sender</span><span class="sh">"</span><span class="p">:</span> <span class="n">board_proxy</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">recipient</span><span class="sh">"</span><span class="p">:</span> <span class="n">player_black</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">summary_method</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">last_msg</span><span class="sh">"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>play!</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chat_result</span> <span class="o">=</span> <span class="n">player_black</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">player_white</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="sh">"</span><span class="s">Let</span><span class="sh">'</span><span class="s">s play chess! Your move.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">max_turns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div> <p><img src="image.png" alt="alt text"/></p> <p><img src="image-1.png" alt="alt text"/></p> <p><img src="image-2.png" alt="alt text"/></p> <h2 id="planning-and-group-chat">Planning and Group Chat</h2> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Write a blogpost about the stock price performance of </span><span class="sh">"</span>\
+<span class="sh">"</span><span class="s">Nvidia in the past month. Today</span><span class="sh">'</span><span class="s">s date is 2025-06-11.</span><span class="sh">"</span>
+
+<span class="kn">import</span> <span class="n">autogen</span>
+
+<span class="n">user_proxy</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Admin</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">Give the task, and send </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">instructions to writer to refine the blog post.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">ALWAYS</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">planner</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Planner</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">Given a task, please determine </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">what information is needed to complete the task. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Please note that the information will all be retrieved using</span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s"> Python code. Please only suggest information that can be </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">retrieved using Python code. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">After each step is done by others, check the progress and </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">instruct the remaining steps. If a step fails, try to </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">workaround</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">Planner. Given a task, determine what </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">information is needed to complete the task. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">After each step is done by others, check the progress and </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">instruct the remaining steps</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">engineer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">AssistantAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Engineer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">An engineer that writes code based on the plan </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">provided by the planner.</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">executor</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Executor</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">Execute the code written by the </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">engineer and report the result.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">human_input_mode</span><span class="o">=</span><span class="sh">"</span><span class="s">NEVER</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">code_execution_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="sh">"</span><span class="s">last_n_messages</span><span class="sh">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">work_dir</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">coding</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">use_docker</span><span class="sh">"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">writer</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">ConversableAgent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Writer</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+    <span class="n">system_message</span><span class="o">=</span><span class="sh">"</span><span class="s">Writer.</span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Please write blogs in markdown format (with relevant titles)</span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s"> and put the content in pseudo ```md``` code block. </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">You take feedback from the admin and refine your blog.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">Writer.</span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">Write blogs based on the code execution results and take </span><span class="sh">"</span>
+    <span class="sh">"</span><span class="s">feedback from the admin to refine the blog.</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>group chat</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">groupchat</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">GroupChat</span><span class="p">(</span>
+    <span class="n">agents</span><span class="o">=</span><span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">engineer</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">executor</span><span class="p">,</span> <span class="n">planner</span><span class="p">],</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">max_round</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">manager</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">GroupChatManager</span><span class="p">(</span>
+    <span class="n">groupchat</span><span class="o">=</span><span class="n">groupchat</span><span class="p">,</span> <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span>
+<span class="p">)</span>
+
+<span class="n">groupchat_result</span> <span class="o">=</span> <span class="n">user_proxy</span><span class="p">.</span><span class="nf">initiate_chat</span><span class="p">(</span>
+    <span class="n">manager</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div> <p>speaking policy to add more control</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">groupchat</span> <span class="o">=</span> <span class="n">autogen</span><span class="p">.</span><span class="nc">GroupChat</span><span class="p">(</span>
+    <span class="n">agents</span><span class="o">=</span><span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">engineer</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">executor</span><span class="p">,</span> <span class="n">planner</span><span class="p">],</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">max_round</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">allowed_or_disallowed_speaker_transitions</span><span class="o">=</span><span class="p">{</span>
+        <span class="n">user_proxy</span><span class="p">:</span> <span class="p">[</span><span class="n">engineer</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">executor</span><span class="p">,</span> <span class="n">planner</span><span class="p">],</span>
+        <span class="n">engineer</span><span class="p">:</span> <span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">executor</span><span class="p">],</span>
+        <span class="n">writer</span><span class="p">:</span> <span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">planner</span><span class="p">],</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">engineer</span><span class="p">,</span> <span class="n">planner</span><span class="p">],</span>
+        <span class="n">planner</span><span class="p">:</span> <span class="p">[</span><span class="n">user_proxy</span><span class="p">,</span> <span class="n">engineer</span><span class="p">,</span> <span class="n">writer</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">speaker_transitions_type</span><span class="o">=</span><span class="sh">"</span><span class="s">allowed</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="federated-learning"/><category term="openmined"/><category term="challenge"/><category term="data-privacy"/><category term="trustworthy-ai"/><summary type="html"><![CDATA[AutoGen]]></summary></entry><entry><title type="html">Multi-Agents with CrewAI</title><link href="https://orionstar25.github.io/blog/2025/multi-agents/" rel="alternate" type="text/html" title="Multi-Agents with CrewAI"/><published>2025-05-22T00:00:00+00:00</published><updated>2025-05-22T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2025/multi-agents</id><content type="html" xml:base="https://orionstar25.github.io/blog/2025/multi-agents/"><![CDATA[<h1 id="tradiitonal-swe-vs-ai-swe">Tradiitonal SWE vs AI SWE</h1> <p>| | Traditional | AI | :—-: | :—: | :—: | | Inputs | Defined set and type | Fuzzy inputs with open-ended texts, e.g., table, markdown, text, math | | Transformations | Predefined math operations, variable assignments, loops | Fuzzy transformations, e.g., QA, summarizing, Reasoning, creative writing | | Outputs | Defined set and type | Fuzzy outputs, e.g., paragraph, json, number, markdown | | Replication | Deterministic | Indeterministic |</p> <h1 id="multi-ai-agents">Multi-AI Agents</h1> <p>Have multiple agents such that we breakdown a complex task into simpler/parallel subtasks and allow separate agents to handle them, e.g., 1 agent is solely responsible for reasearching a topic, while another agent writes summaries of these topics.</p> <p>Can also have different agents using different LLMs, e.g, agent 1 using llama 3 and agent 2 using gpt.</p> <h2 id="example-multi-agent-system-content-writer">Example Multi-Agent System: Content Writer</h2> <p>Build a multi-agent crew that researches and writes an article.</p> <ul> <li>Define your Agents and provide them a: <ul> <li>role</li> <li>goal</li> <li>backstory.</li> </ul> </li> <li>It has been seen that LLMs perform better when they are role playing.</li> </ul> <h3 id="agents">Agents</h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">crewai</span> <span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Task</span><span class="p">,</span> <span class="n">Crew</span>
 
 <span class="c1"># Agent - Planner
 </span><span class="n">planner</span> <span class="o">=</span> <span class="nc">Agent</span><span class="p">(</span>
@@ -1034,7 +1811,7 @@ You should follow this format:
 <span class="o">&gt;</span> <span class="c1">########## REVISED TEXT ##########
 </span><span class="n">You</span> <span class="n">are</span> <span class="n">an</span> <span class="n">expert</span> <span class="n">Q</span><span class="o">&amp;</span><span class="n">A</span> <span class="n">system</span> <span class="k">for</span> <span class="n">ZephyrBank</span><span class="p">;</span> <span class="n">a</span> <span class="n">fintech</span> <span class="n">company</span> <span class="n">specializing</span> <span class="ow">in</span> <span class="n">banking</span> <span class="n">services</span> <span class="k">for</span> <span class="n">business</span> <span class="n">owners</span><span class="p">.</span>
 
-<span class="n">Always</span> <span class="n">answer</span> <span class="n">the</span> <span class="n">user</span> <span class="n">question</span><span class="p">.</span> <span class="n">You</span> <span class="n">are</span> <span class="n">given</span> <span class="n">some</span> <span class="n">context</span> <span class="n">information</span> <span class="n">to</span> <span class="n">help</span> <span class="n">you</span> <span class="ow">in</span> <span class="n">answering</span><span class="p">.</span>
+<span class="n">Always</span> <span class="n">answer</span> <span class="n">the</span> <span class="n">user</span> <span class="n">question</span><span class="p">.</span> <span class="n">You</span> <span class="n">are</span> <span class="n">given</span> <span class="n">some</span> <span class="n">context</span> <span class="n">information</span> <span class="n">to</span> <span class="nb">help</span> <span class="n">you</span> <span class="ow">in</span> <span class="n">answering</span><span class="p">.</span>
 
 <span class="c1">### Context:
 </span>
@@ -1736,54 +2513,4 @@ Summary: LangChain is a software framework that helps facilitate the integration
     <span class="n">pn</span><span class="p">.</span><span class="nc">Tabs</span><span class="p">((</span><span class="sh">'</span><span class="s">Conversation</span><span class="sh">'</span><span class="p">,</span> <span class="n">tab1</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">dashboard</span>
-</code></pre></div></div> <div class="row justify-content-sm-center"> <div class="col-sm-4 mt-3 mt-md-0"> <figure> <picture> <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/chatbot-480.webp"/> <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/chatbot-800.webp"/> <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/chatbot-1400.webp"/> <img src="/assets/img/chatbot.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="image" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"/> </picture> </figure> </div> </div> <hr/> <p>That’s all folks! I have a few other agent concepts to learn in the pipeline. Let the learning continue 😄.</p>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="github"/><summary type="html"><![CDATA[Understand the capabilities of LLMs to the fullest.]]></summary></entry><entry><title type="html">A list of Open Source AI Projects</title><link href="https://orionstar25.github.io/blog/2024/oss-ai-projects/" rel="alternate" type="text/html" title="A list of Open Source AI Projects"/><published>2024-11-01T00:00:00+00:00</published><updated>2024-11-01T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2024/oss-ai-projects</id><content type="html" xml:base="https://orionstar25.github.io/blog/2024/oss-ai-projects/"><![CDATA[<p>Contributing to open-source AI projects is a fantastic idea, especially for developing skills, showcasing your work, and networking with the broader community. There are several beginner-friendly yet impactful projects you can explore. Here are some to consider:</p> <blockquote> <p>NOTE: This list has been generated using ChatGPT, October 2024</p> </blockquote> <h3 id="1-hugging-face--transformers">1. <strong>Hugging Face (🤗 Transformers)</strong></h3> <ul> <li><strong>Overview</strong>: Hugging Face is one of the leading platforms in NLP and AI. The <em>Transformers</em> library is widely used for NLP models and tasks.</li> <li><strong>Why it’s great</strong>: There’s a supportive community, excellent documentation, and many open issues. Beginners can contribute by improving models, datasets, documentation, or tutorials.</li> <li><strong>Skills you’ll gain</strong>: NLP, model fine-tuning, understanding transformer architectures.</li> <li><strong>Get started</strong>: Check out their <a href="https://github.com/huggingface/transformers/issues">open issues</a> and community projects. You can contribute by helping with tutorials or working on model integration.</li> </ul> <h3 id="2-tensorflow">2. <strong>TensorFlow</strong></h3> <ul> <li><strong>Overview</strong>: TensorFlow, backed by Google, is one of the most widely used ML frameworks. It offers projects ranging from beginners to advanced levels.</li> <li><strong>Why it’s great</strong>: There’s a large, active community. Even small contributions can have a big impact. TensorFlow has a wide array of subprojects (e.g., TensorFlow Lite for mobile and TensorFlow.js for JavaScript).</li> <li><strong>Skills you’ll gain</strong>: Deep learning, TensorFlow architecture, model building and deployment.</li> <li><strong>Get started</strong>: Visit the <a href="https://github.com/tensorflow/tensorflow/issues">TensorFlow issues page</a> to find areas where you can contribute, from fixing bugs to writing examples and tutorials.</li> </ul> <h3 id="3-fastai">3. <strong>FastAI</strong></h3> <ul> <li><strong>Overview</strong>: FastAI is an easy-to-use deep learning library built on top of PyTorch. It’s designed to be accessible for learners and offers top-level results with minimal coding.</li> <li><strong>Why it’s great</strong>: FastAI has a very friendly and inclusive community. Contributing to documentation, tutorials, or even model improvements are all welcome.</li> <li><strong>Skills you’ll gain</strong>: PyTorch, deep learning, computer vision, and NLP.</li> <li><strong>Get started</strong>: Check out their <a href="https://github.com/fastai/fastai">GitHub repository</a> for beginner-friendly issues and join their forums to engage with other contributors.</li> </ul> <h3 id="4-pytorch">4. <strong>PyTorch</strong></h3> <ul> <li><strong>Overview</strong>: PyTorch is another popular open-source deep learning library. Backed by Facebook AI, it’s known for its flexibility and ease of use.</li> <li><strong>Why it’s great</strong>: Contributing to PyTorch can help you understand deep learning frameworks in depth. You can contribute to various areas like improving models, adding new features, or enhancing performance.</li> <li><strong>Skills you’ll gain</strong>: PyTorch, deep learning, understanding hardware acceleration (if you dive into GPU optimizations).</li> <li><strong>Get started</strong>: PyTorch has <a href="https://github.com/pytorch/pytorch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first issues</a> that are ideal for beginners.</li> </ul> <h3 id="5-openmined">5. <strong>OpenMined</strong></h3> <ul> <li><strong>Overview</strong>: OpenMined is an open-source community focused on privacy-preserving AI. Their flagship projects like PySyft allow training ML models on private data without accessing the data directly.</li> <li><strong>Why it’s great</strong>: You’ll get exposure to cutting-edge techniques in privacy, such as federated learning and differential privacy.</li> <li><strong>Skills you’ll gain</strong>: Privacy-preserving machine learning, PyTorch, federated learning.</li> <li><strong>Get started</strong>: Visit their <a href="https://github.com/OpenMined">GitHub</a> and check out the community discussions and first issues to contribute.</li> </ul> <h3 id="6-deepchem">6. <strong>DeepChem</strong></h3> <ul> <li><strong>Overview</strong>: DeepChem is a library focused on democratizing deep learning for science, particularly in drug discovery and materials science.</li> <li><strong>Why it’s great</strong>: If you’re interested in the intersection of AI and life sciences, this is a great place to start. Contributions range from improving documentation to developing models for new scientific datasets.</li> <li><strong>Skills you’ll gain</strong>: AI in life sciences, PyTorch/TensorFlow, model building and application.</li> <li><strong>Get started</strong>: Explore their <a href="https://github.com/deepchem/deepchem">contribution guide</a> and look for issues tagged as beginner-friendly.</li> </ul> <h3 id="7-ml5js">7. <strong>ML5.js</strong></h3> <ul> <li><strong>Overview</strong>: ML5.js is a JavaScript library that makes machine learning accessible to the web developer community. It wraps TensorFlow.js and allows ML models to run in-browser.</li> <li><strong>Why it’s great</strong>: It’s very beginner-friendly, especially if you have some JavaScript knowledge. It’s also fun to build and deploy AI-powered web apps.</li> <li><strong>Skills you’ll gain</strong>: Web-based AI, TensorFlow.js, interactive app development.</li> <li><strong>Get started</strong>: Check out the <a href="https://github.com/ml5js/ml5-library/issues">ML5.js GitHub issues</a> for contribution ideas.</li> </ul> <h3 id="8-scikit-learn">8. <strong>Scikit-Learn</strong></h3> <ul> <li><strong>Overview</strong>: Scikit-learn is a widely-used machine learning library in Python, focused on traditional ML algorithms.</li> <li><strong>Why it’s great</strong>: It’s a great starting point to contribute to core ML algorithms. Many companies use scikit-learn in production, so contributing here could make you highly visible.</li> <li><strong>Skills you’ll gain</strong>: Classical ML algorithms, Python, data science workflows.</li> <li><strong>Get started</strong>: Check out the <a href="https://scikit-learn.org/stable/developers/contributing.html">contribution guide</a> and issues labeled for new contributors.</li> </ul> <h3 id="general-tips">General Tips:</h3> <ul> <li><strong>Start Small</strong>: Begin with simple tasks like documentation updates, code review, or small bug fixes. This helps you learn the codebase and build confidence.</li> <li><strong>Join the Community</strong>: Engage with the project’s community via forums, Slack, or GitHub discussions to get help and meet other contributors.</li> <li><strong>Be Consistent</strong>: Regular contributions, no matter how small, can help you build a reputation in the community and attract collaboration opportunities.</li> </ul>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="github"/><summary type="html"><![CDATA[A quick lookup list for me to keep track of potential opensource projects]]></summary></entry><entry><title type="html">Augment E-Commerce with Deep Learning</title><link href="https://orionstar25.github.io/blog/2024/ecomm-ml/" rel="alternate" type="text/html" title="Augment E-Commerce with Deep Learning"/><published>2024-06-27T00:00:00+00:00</published><updated>2024-06-27T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2024/ecomm-ml</id><content type="html" xml:base="https://orionstar25.github.io/blog/2024/ecomm-ml/"><![CDATA[<p>Usually, ML interviews consist of case studies that require you to think about what features to use given a use-case. However, interviewers ocassionally also throw open-ended questions like - “How will you increase the functionality of our current product using AI/ML?”. Thus, I had recently given a series of ML interviews for multiple e-commerce platforms and I did some pre-thinking before these interviews to prepare better. Below are a few ways I feel AI can be leveraged to improve the quality of e-commerce apps.</p> <h1 id="already-happening-">Already happening ✅</h1> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Targetted ads
-- Personalized offers
-- Dynamic pricing
-- Recommendations for increased visibility
-- increased engagement
-</code></pre></div></div> <h1 id="enhancements-">Enhancements 📈</h1> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Rebalance driver fleets according to demand
-	- followed by driver allocation
-	- incentivize
-	- lesser waiting times
-	- greater coverage
-
-- augment customer service
-	- automate flow with bots
-	- provide solutions based on existing knowledge base (customer profiles, previous interactions, existing solutions)
-	- greater autonomy to solve problems at care-tech level than engineer level
-		- analysis entire order life-cycle to pin-point issue (stuck state, driver reblast)
-	- use feedbacks to filter out complaints, suggestions and direct to relevant team
-		- summarize pain points
-		- provide initial problem suggestions
-
-- augment the app to a more human-like experience
-	- "snacks for rainy day"
-		- recommend food
-			- individual items or set packages
-		- provide customized offers (discount on existing cart, discount to add more items)
-		- automatically add to cart, review, pay
-	- "need ingredients to make biryani"
-		- list products, or complete packages
-	- promote (users+restos) based on festivals
-	- create a mini-google within the app
-		- "how much time form X to Y and whats the price"
-		- review, book ride
-	- spotify-like recommendations
-		- "people also like"
-		- "top 10 foods in your area"
-		- "new releases"
-
-- have a unified cart with multiple restos (like amazon)
-	- order pizza from dominos
-	- chicken from kfc
-	- pay all at once
-	- internally calculate respective breakup and pay merchant
-
-- use AI for edge devices
-	- "knowledge distillation," or “Domain reduction”, which involves training a smaller model to mimic the behavior of a larger model on a smaller data set
-	- quantization to reduce memory footprint
-	- hybrid solutions (cloud + edge)
-		- with devices running ‘light’ versions of the model for low latency while the cloud processes multiple tokens of the ‘full’ model in parallel and corrects the device answers if needed.
-
-- Robustness
-</code></pre></div></div>]]></content><author><name></name></author><category term="artificial-intelligence"/><category term="e-commerce"/><category term="technology"/><summary type="html"><![CDATA[A running list of ideas of how existing e-commerce platforms can leverage AI]]></summary></entry><entry><title type="html">[WIP] The RAG Triad - Metrics to evaluate Advanced RAG</title><link href="https://orionstar25.github.io/blog/2024/evaluate-rag/" rel="alternate" type="text/html" title="[WIP] The RAG Triad - Metrics to evaluate Advanced RAG"/><published>2024-06-25T00:00:00+00:00</published><updated>2024-06-25T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2024/evaluate-rag</id><content type="html" xml:base="https://orionstar25.github.io/blog/2024/evaluate-rag/"><![CDATA[<p>https://docs.google.com/presentation/d/14zE7RMad5OAp3IknnjqGdfdmKwiJObo_Wp6ikSwPxCo/edit?usp=sharing <a href="https://x.com/GDGCloudMumbai/status/1804489370801676375">Recording</a>, <a href="https://docs.google.com/presentation/d/14zE7RMad5OAp3IknnjqGdfdmKwiJObo_Wp6ikSwPxCo/edit?usp=sharing">Slides</a> https://github.com/OrionStar25/Build-and-Evaluate-RAGs</p> <p>https://huggingface.co/learn/cookbook/en/rag_evaluation https://python.langchain.com/v0.1/docs/integrations/chat/google_vertex_ai_palm/ https://cloud.google.com/vertex-ai/docs/tutorials/jupyter-notebooks#vertex-ai-workbench</p> <p>start with:</p> <ol> <li>Steps in evaluating RAG <ul> <li>Build RAG</li> <li>Build a evaluation dataset <ul> <li>manually create dataset</li> <li>use an llm to create dataset</li> <li>use another llm to filter out relevant questions</li> </ul> </li> <li>Use another LLM as a judge to critic on evaluation set</li> </ul> </li> <li> <p>lots of things to tweak in the RAG pipeline - but there should be a proper way to evaluate its impact</p> </li> <li>dataset used is huggingface documentation <ul> <li>text + source</li> </ul> </li> <li>synthetic evaluation dataset creation <ul> <li>input: randomised context from knowledge base <ul> <li>text+metadata</li> <li>chunk documents into equal-sized chunks with overlap for continuity</li> </ul> </li> <li>output: <ul> <li>possible question from the context asked by a user <ul> <li>force llm to not mention anything about using a context to generate this question (user never had a context)</li> </ul> </li> <li>answer to the given question supported by the context.</li> </ul> </li> <li>use LLM A (Mixtral 7B-instruct) to create this set. <ul> <li>The Mixtral-8x7B Large Language Model (LLM) is a pretrained generative Sparse Mixture of Experts (8 experts).</li> <li>The Mixtral-8x7B outperforms Llama 2 70B on most benchmarks.</li> </ul> </li> <li> <p>generate at least &gt; 200 QA pairs since half of these will get filtered out + evaluation set should be at least ~100 questions.</p> </li> <li>critique agent: <ul> <li>rate each question on several criteria</li> <li>evaluation criteria: <ul> <li>groundedness of question within context</li> <li>relevance of questions wrt to expected task</li> <li>stand-alone of questions without any context</li> </ul> </li> <li>give score 1 to 5 and remove all questions that have low score for any criteria</li> <li>use same LLM A to critique</li> </ul> </li> </ul> </li> <li>Build RAG <ul> <li>split documents using recursive split</li> <li>embed documents <ul> <li>model used: thenlper/gte-small</li> </ul> </li> <li>retrieve relevant chunks - like a search engine <ul> <li>FAISS index stores embeddings for quick retrievals of similar chunks</li> </ul> </li> <li>use retrieved contexts + query to formulate answer <ul> <li>rerank retrieved context <ul> <li>retrieve 30 docs</li> <li>rerank and output best 7</li> <li>model used: colbert-ir/colbertv2.0</li> <li>reevaluates and reorders the documents retrieved by the initial search based on their relevance to the query</li> </ul> </li> <li>answer using llm <ul> <li>LLM B (zephyr-7b-beta)</li> <li>a fine-tuned version of (mistralai/Mistral-7B-v0.1) trained to act as helpful assistants.</li> </ul> </li> </ul> </li> </ul> </li> <li>Evaluate RAG <ul> <li>use answer correctness as a metric <ul> <li>use a scoring rubric to ground the evaluation</li> </ul> </li> <li>use LLM C (chatvertexai/palm2)</li> <li>should use other metrics such as context relevance, faithfulness (groundedness) https://docs.ragas.io/en/latest/concepts/metrics/index.html</li> </ul> </li> </ol> <p>RAG Triads:</p> <ul> <li>answer relevance <ul> <li>is the answer relevant to the question</li> </ul> </li> <li>context relevance <ul> <li>is the retrieved context relevant to the question asked</li> </ul> </li> <li>groundedness <ul> <li>is the answer grounded in the context retrieved</li> </ul> </li> </ul>]]></content><author><name></name></author><category term="artificial-intelligence"/><category term="rag"/><category term="evaluation"/><category term="opensource"/><category term="mistral"/><category term="generative ai"/><summary type="html"><![CDATA[Evaluate advanced RAG using meaningful metrics such as answer relevance, context relevance, and groundedness.]]></summary></entry></feed>
+</code></pre></div></div> <div class="row justify-content-sm-center"> <div class="col-sm-4 mt-3 mt-md-0"> <figure> <picture> <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/chatbot-480.webp"/> <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/chatbot-800.webp"/> <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/chatbot-1400.webp"/> <img src="/assets/img/chatbot.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="image" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"/> </picture> </figure> </div> </div> <hr/> <p>That’s all folks! I have a few other agent concepts to learn in the pipeline. Let the learning continue 😄.</p>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="github"/><summary type="html"><![CDATA[Understand the capabilities of LLMs to the fullest.]]></summary></entry><entry><title type="html">A list of Open Source AI Projects</title><link href="https://orionstar25.github.io/blog/2024/oss-ai-projects/" rel="alternate" type="text/html" title="A list of Open Source AI Projects"/><published>2024-11-01T00:00:00+00:00</published><updated>2024-11-01T00:00:00+00:00</updated><id>https://orionstar25.github.io/blog/2024/oss-ai-projects</id><content type="html" xml:base="https://orionstar25.github.io/blog/2024/oss-ai-projects/"><![CDATA[<p>Contributing to open-source AI projects is a fantastic idea, especially for developing skills, showcasing your work, and networking with the broader community. There are several beginner-friendly yet impactful projects you can explore. Here are some to consider:</p> <blockquote> <p>NOTE: This list has been generated using ChatGPT, October 2024</p> </blockquote> <h3 id="1-hugging-face--transformers">1. <strong>Hugging Face (🤗 Transformers)</strong></h3> <ul> <li><strong>Overview</strong>: Hugging Face is one of the leading platforms in NLP and AI. The <em>Transformers</em> library is widely used for NLP models and tasks.</li> <li><strong>Why it’s great</strong>: There’s a supportive community, excellent documentation, and many open issues. Beginners can contribute by improving models, datasets, documentation, or tutorials.</li> <li><strong>Skills you’ll gain</strong>: NLP, model fine-tuning, understanding transformer architectures.</li> <li><strong>Get started</strong>: Check out their <a href="https://github.com/huggingface/transformers/issues">open issues</a> and community projects. You can contribute by helping with tutorials or working on model integration.</li> </ul> <h3 id="2-tensorflow">2. <strong>TensorFlow</strong></h3> <ul> <li><strong>Overview</strong>: TensorFlow, backed by Google, is one of the most widely used ML frameworks. It offers projects ranging from beginners to advanced levels.</li> <li><strong>Why it’s great</strong>: There’s a large, active community. Even small contributions can have a big impact. TensorFlow has a wide array of subprojects (e.g., TensorFlow Lite for mobile and TensorFlow.js for JavaScript).</li> <li><strong>Skills you’ll gain</strong>: Deep learning, TensorFlow architecture, model building and deployment.</li> <li><strong>Get started</strong>: Visit the <a href="https://github.com/tensorflow/tensorflow/issues">TensorFlow issues page</a> to find areas where you can contribute, from fixing bugs to writing examples and tutorials.</li> </ul> <h3 id="3-fastai">3. <strong>FastAI</strong></h3> <ul> <li><strong>Overview</strong>: FastAI is an easy-to-use deep learning library built on top of PyTorch. It’s designed to be accessible for learners and offers top-level results with minimal coding.</li> <li><strong>Why it’s great</strong>: FastAI has a very friendly and inclusive community. Contributing to documentation, tutorials, or even model improvements are all welcome.</li> <li><strong>Skills you’ll gain</strong>: PyTorch, deep learning, computer vision, and NLP.</li> <li><strong>Get started</strong>: Check out their <a href="https://github.com/fastai/fastai">GitHub repository</a> for beginner-friendly issues and join their forums to engage with other contributors.</li> </ul> <h3 id="4-pytorch">4. <strong>PyTorch</strong></h3> <ul> <li><strong>Overview</strong>: PyTorch is another popular open-source deep learning library. Backed by Facebook AI, it’s known for its flexibility and ease of use.</li> <li><strong>Why it’s great</strong>: Contributing to PyTorch can help you understand deep learning frameworks in depth. You can contribute to various areas like improving models, adding new features, or enhancing performance.</li> <li><strong>Skills you’ll gain</strong>: PyTorch, deep learning, understanding hardware acceleration (if you dive into GPU optimizations).</li> <li><strong>Get started</strong>: PyTorch has <a href="https://github.com/pytorch/pytorch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first issues</a> that are ideal for beginners.</li> </ul> <h3 id="5-openmined">5. <strong>OpenMined</strong></h3> <ul> <li><strong>Overview</strong>: OpenMined is an open-source community focused on privacy-preserving AI. Their flagship projects like PySyft allow training ML models on private data without accessing the data directly.</li> <li><strong>Why it’s great</strong>: You’ll get exposure to cutting-edge techniques in privacy, such as federated learning and differential privacy.</li> <li><strong>Skills you’ll gain</strong>: Privacy-preserving machine learning, PyTorch, federated learning.</li> <li><strong>Get started</strong>: Visit their <a href="https://github.com/OpenMined">GitHub</a> and check out the community discussions and first issues to contribute.</li> </ul> <h3 id="6-deepchem">6. <strong>DeepChem</strong></h3> <ul> <li><strong>Overview</strong>: DeepChem is a library focused on democratizing deep learning for science, particularly in drug discovery and materials science.</li> <li><strong>Why it’s great</strong>: If you’re interested in the intersection of AI and life sciences, this is a great place to start. Contributions range from improving documentation to developing models for new scientific datasets.</li> <li><strong>Skills you’ll gain</strong>: AI in life sciences, PyTorch/TensorFlow, model building and application.</li> <li><strong>Get started</strong>: Explore their <a href="https://github.com/deepchem/deepchem">contribution guide</a> and look for issues tagged as beginner-friendly.</li> </ul> <h3 id="7-ml5js">7. <strong>ML5.js</strong></h3> <ul> <li><strong>Overview</strong>: ML5.js is a JavaScript library that makes machine learning accessible to the web developer community. It wraps TensorFlow.js and allows ML models to run in-browser.</li> <li><strong>Why it’s great</strong>: It’s very beginner-friendly, especially if you have some JavaScript knowledge. It’s also fun to build and deploy AI-powered web apps.</li> <li><strong>Skills you’ll gain</strong>: Web-based AI, TensorFlow.js, interactive app development.</li> <li><strong>Get started</strong>: Check out the <a href="https://github.com/ml5js/ml5-library/issues">ML5.js GitHub issues</a> for contribution ideas.</li> </ul> <h3 id="8-scikit-learn">8. <strong>Scikit-Learn</strong></h3> <ul> <li><strong>Overview</strong>: Scikit-learn is a widely-used machine learning library in Python, focused on traditional ML algorithms.</li> <li><strong>Why it’s great</strong>: It’s a great starting point to contribute to core ML algorithms. Many companies use scikit-learn in production, so contributing here could make you highly visible.</li> <li><strong>Skills you’ll gain</strong>: Classical ML algorithms, Python, data science workflows.</li> <li><strong>Get started</strong>: Check out the <a href="https://scikit-learn.org/stable/developers/contributing.html">contribution guide</a> and issues labeled for new contributors.</li> </ul> <h3 id="general-tips">General Tips:</h3> <ul> <li><strong>Start Small</strong>: Begin with simple tasks like documentation updates, code review, or small bug fixes. This helps you learn the codebase and build confidence.</li> <li><strong>Join the Community</strong>: Engage with the project’s community via forums, Slack, or GitHub discussions to get help and meet other contributors.</li> <li><strong>Be Consistent</strong>: Regular contributions, no matter how small, can help you build a reputation in the community and attract collaboration opportunities.</li> </ul>]]></content><author><name></name></author><category term="open-source"/><category term="opensource"/><category term="ai"/><category term="github"/><summary type="html"><![CDATA[A quick lookup list for me to keep track of potential opensource projects]]></summary></entry></feed>
